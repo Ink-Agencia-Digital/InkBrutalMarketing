@@ -81,7 +81,7 @@ WSGI_APPLICATION = 'InkBrutalMarketing.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'BDS_InkButalMarketing',
+        'NAME': 'BDS_InkBrutalMarketing',
         'USER': 'root',
         'PASSWORD': '',
         'HOST': 'localhost',

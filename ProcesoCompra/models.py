@@ -4,7 +4,7 @@ from Persona.models import Personas
 # Create your models here.
 
 # Modelo de la tabla de Ideas
-class Ideas(models.model):
+class Ideas(models.Model):
     IDA_Id_Idea = models.BigAutoField(primary_key = True)
     IDA_Descripcion_Idea = models.TextField()
     
