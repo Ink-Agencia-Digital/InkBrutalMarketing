@@ -7,6 +7,9 @@
 # Para ejecutar el servidor
 # python manage.py runserver
 
+# Para poder conectarnos con MySql
+# pip install mysqlclient
+
 # Para crear las distintas aplicaciones del proyecto
 # python manage.py startapp "nombre de la aplicación"
 
