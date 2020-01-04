@@ -37,11 +37,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'Administrador',
-    'ListaContenidos',
-    'Persona',
-    'PlanificacionEmails',
-    'ProcesoCompra'
+    'apps.Administrador',
+    'apps.General',
+    'apps.ListaContenidos',
+    'apps.Persona',
+    'apps.PlanificacionEmails',
+    'apps.ProcesoCompra',
 ]
 
 MIDDLEWARE = [
@@ -115,7 +116,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'es-co'
 
 TIME_ZONE = 'UTC'
 
