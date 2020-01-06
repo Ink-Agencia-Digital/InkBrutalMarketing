@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="es" >
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Documento Base{% endblock %}</title>
+    {% block style %}
+    <!-- Acá los css -->
+    {% endblock  %}
+</head>
+<body>
+{% block header %}
+    <h4>Acá header</h4>
+{% endblock  %}
+
+{% block content %}
+    <h4>Acá contenido</h4>
+{% endblock  %}
+
+{% block footer %}
+    <h4>Acá footer</h4>
+{% endblock  %}
+
+{% block scripts %}
+<!-- Acá los scripts -->
+{% endblock  %}
+</body>
+</html>
