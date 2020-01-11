@@ -1,0 +1,21 @@
+{% extends 'registration.base' %}
+{% block titulo %} Login{% endblock %}
+{% block contenido %}
+    <br><br><br>
+    <br><br><br>
+    <form>
+        {% csrf_token %}
+        <h2>Hola!</h2>
+        <div class="form-group ">
+            <label for="staticEmail" class="sr-only">Email</label>
+            <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="email@example.com">
+            <h4>Ingresa tu nueva contraseña</h4>
+        </div>
+        <div class="form-group ">
+            <input type="password" class="form-control" id="Password" placeholder="Nueva Contraseña">
+            <br>
+            <input type="password" class="form-control" id="Password" placeholder="Confirmar Contraseña">
+        </div>
+        <button type="submit, button" class="btn btn-success">Restablecer</button>
+    </form>
+{% endblock %}

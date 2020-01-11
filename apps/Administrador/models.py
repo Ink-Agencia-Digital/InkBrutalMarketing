@@ -1,6 +1,11 @@
 from django.db import models
+from django.contrib.auth.models import AbstractUser
 
 # Create your models here.
+
+# Modelo CustomUser para la autentificación de usuario
+class CustomUser(AbstractUser):
+    pass
 
 # Modelo de la tabla de Usuarios
 class Usuario(models.Model):

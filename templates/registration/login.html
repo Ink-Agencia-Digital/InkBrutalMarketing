@@ -1,0 +1,14 @@
+{% extends 'registration/base.html' %}
+{% load crispy_forms_tags %}
+{% block titulo %} Login{% endblock %}
+{% block contenido %}
+    <br><br><br> <br> <br> 
+    <br><br><br><br>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <a class="a" href="https://www.inkdigital.co">¿Olvidaste tu contaseña?</a>       
+        <button type="submit" class=" btn btn-success">Entrar</button> 
+        
+    </form>
+{% endblock %}

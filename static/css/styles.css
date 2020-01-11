@@ -1,0 +1,53 @@
+
+.btn{
+    left: 35%;
+    text-align:center;
+    border:0px;
+    position: relative;
+    width:120px;
+    height:39px;
+    }
+    .btn1{
+    left: 50%;
+    text-align:center;
+    border:0px;
+    position: relative;
+    width:120px;
+    height:39px;
+    }
+    .btn2{
+    left: 50%;
+    text-align:center;
+    border:0px;
+    position: relative;
+    width:120px;
+    height:39px;
+    }
+    
+    .boton{
+    left: 50%;
+    text-align:center;
+    border:0px;
+    position: relative;
+    width:120px;
+    height:39px;
+    }
+    .a{
+    left: 20%;
+    text-align:center;
+    border:0px;
+    position: relative;
+    width:120px;
+    height:39px;
+    color: black;
+    }
+
+    .background{
+        position: absolute;
+        z-index: 1;
+        width: 98%;
+        height: 169%;
+        padding-top: 0%;
+        padding-left: 0%;
+        padding-right: 0%;
+    }
