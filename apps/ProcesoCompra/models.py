@@ -7,6 +7,8 @@ from apps.Persona.models import Persona
 class Idea(models.Model):
     IDA_Id_Idea = models.BigAutoField(primary_key = True)
     IDA_Descripcion_Idea = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     
     class Meta:
         db_table = 'TBL_Ideas'
@@ -16,6 +18,8 @@ class Estado(models.Model):
     EST_Id_Estado = models.BigAutoField(primary_key = True)
     EST_Nombre_Estado = models.CharField(max_length = 100)
     EST_Descripcion_Estado = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     
     class Meta:
         db_table = 'TBL_Estados'
@@ -26,6 +30,8 @@ class Etapa(models.Model):
     ETP_Descripcion_Etapa = models.TextField()
     ETP_Idea_Etapa = models.ForeignKey(Idea, on_delete=models.CASCADE, related_name='FK_Etapas_Idea_Id')
     ETP_Estado_Etapa = models.ForeignKey(Estado, on_delete=models.CASCADE, related_name='FK_Etapas_Estado_Id')
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     
     class Meta:
         db_table = 'TBL_Etapas'

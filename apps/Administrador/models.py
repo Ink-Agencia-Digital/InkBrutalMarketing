@@ -19,6 +19,8 @@ class Usuario(models.Model):
     USR_Email_Usuario = models.EmailField()
     USR_Nombre_Usuario = models.CharField(max_length=15)
     USR_Contrasena_Usuario = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     
     class Meta:
         db_table = 'TBL_Usuarios'
@@ -28,6 +30,8 @@ class Rol(models.Model):
     RLS_Id_Rol = models.BigAutoField(primary_key = True)
     RLS_Nombre_Rol = models.CharField(max_length = 30)
     RLS_Descripcion_Rol = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     
     class Meta:
         db_table = 'TBL_Roles'
@@ -47,6 +51,8 @@ class Menu(models.Model):
     MN_Nombre_Menu = models.CharField(max_length = 50)
     MN_Url_Menu = models.CharField(max_length = 30)
     MN_Icono_Menu = models.CharField(max_length = 15)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     
     class Meta:
         db_table = 'TBL_Menus'
@@ -65,6 +71,8 @@ class Permiso(models.Model):
     PRM_Id_Permiso = models.BigAutoField(primary_key = True)
     PRM_Nombre_Permiso = models.CharField(max_length = 50)
     PRM_Slug_Permiso = models.CharField(max_length = 100)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     
     class Meta:
         db_table = 'TBL_Permisos'

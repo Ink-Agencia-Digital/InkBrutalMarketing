@@ -9,6 +9,8 @@ class TipoCampana(models.Model):
     TCM_Id_Tipo_Campana = models.BigAutoField(primary_key = True)
     TCM_Nombre_Tipo_Campana = models.CharField(max_length = 150)
     TCM_Descripcion_Campana = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     
     class Meta:
         db_table = 'TBL_Tipo_Campana'
@@ -24,6 +26,8 @@ class Campana(models.Model):
     CMP_Estado_Campana = models.ForeignKey(Estado, on_delete=models.CASCADE, related_name='FK_Campanas_Estado_Id')
     CMP_Archivo_Campana = models.TextField()
     CMP_Contenido_Campana = models.OneToOneField(Contenido, on_delete=models.CASCADE, related_name='FK_Campanas_Contenido_Id')
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     
     class Meta:
         db_table = 'TBL_Campanas'
