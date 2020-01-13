@@ -33,6 +33,8 @@ urlpatterns = [
     
     # URL_API_Personas
     path("api/", include("apps.Persona.api.urls")),
+    # URL_API_Planificacion_Emails
+    path("api/", include("apps.PlanificacionEmails.api.urls")),
     
     re_path(r"^.*$", IndexTemplateView.as_view(), name="entry-point"),
 ]
