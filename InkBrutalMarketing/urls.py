@@ -37,6 +37,8 @@ urlpatterns = [
     path("api/", include("apps.PlanificacionEmails.api.urls")),
     # URL_API_Proceso_Compra
     path("api/", include("apps.ProcesoCompra.api.urls")),
+    # URL_API_Lista_Contenidos
+    path("api/", include("apps.ListaContenidos.api.urls")),
     
     re_path(r"^.*$", IndexTemplateView.as_view(), name="entry-point"),
 ]
