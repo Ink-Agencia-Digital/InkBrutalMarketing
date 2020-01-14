@@ -1,28 +1,22 @@
 from rest_framework import serializers
-from apps.ListaContenidos.models import Formato
+from apps.ListaContenidos.models import Formato, Contenido
 
 class FormatoSerializer(serializers.ModelSerializer):
-    FMT_Nombre_Formato = serializers.CharField(max_length=150)
     created_at = serializers.SerializerMethodField()
     
     class Meta:
         model = Formato
-        exclude = ["updated_at"]
+        fields = ["FMT_Id_Formato", "FMT_Nombre_Formato", "FMT_Descripcion_Formato", "created_at"]
     
     def get_created_at(self, instance):
         return instance.created_at.strftime("%B %d, %Y")
 
-"""class ContenidoSerializer(serializers.ModelSerializer):
-    CNT_Nombre_Contenido = serializers.CharField(max_length=150)
-    CNT_Formato_Contenido = serializers.StringRelatedField(read_only=True)
-    CNT_Embudo_Formato = serializers.StringRelatedField(read_only=True)
-    CNT_Relevancia_Formato = serializers.StringRelatedField(read_only=True)
-    CNT_Estado_Formato = serializers.StringRelatedField(read_only=True)
+class ContenidoSerializer(serializers.ModelSerializer):
     created_at = serializers.SerializerMethodField()
     
     class Meta:
-        model = Formato
-        exclude = ["updated_at"]
+        model = Contenido
+        fields = ["CNT_Id_Contenido", "CNT_Nombre_Contenido", "CNT_Formato_Contenido", "CNT_Embudo_Formato", "CNT_Relevancia_Formato", "CNT_Estado_Formato", "created_at"]
     
     def get_created_at(self, instance):
-        return instance.created_at.strftime("%B %d, %Y")"""
+        return instance.created_at.strftime("%B %d, %Y")
