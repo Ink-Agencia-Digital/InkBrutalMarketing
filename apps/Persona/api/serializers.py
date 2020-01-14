@@ -10,34 +10,67 @@ class UserDisplaySerializer(serializers.ModelSerializer):
         fields = ["username"]
 
 class EscolaridadSerializer(serializers.ModelSerializer):
-    ESC_Nombre_Escolaridad = serializers.CharField(max_length=50)
     created_at = serializers.SerializerMethodField()
     
     class Meta:
         model = Escolaridad
-        exclude = ["updated_at"]
+        fields = ["ESC_Id_Escolaridad", "ESC_Nombre_Escolaridad", "created_at"]
+    
+    def get_created_at(self, instance):
+        return instance.created_at.strftime("%B %d, %Y")
+
+class PersonaSerializer(serializers.ModelSerializer):
+    created_at = serializers.SerializerMethodField()
+    
+    class Meta:
+        model = Persona
+        fields = ["PSN_Id_Persona", "PSN_Nombres_Persona", "created_at", "PSN_Apellidos_Persona", "PSN_Edad_Persona", "PSN_Escoladidad_Persona", "PSN_Sexo_Persona", "PSN_Cargo_Persona"]
     
     def get_created_at(self, instance):
         return instance.created_at.strftime("%B %d, %Y")
 
 class MedioSerializer(serializers.ModelSerializer):
-    MDO_Nombre_Medio = serializers.CharField(max_length=150)
     created_at = serializers.SerializerMethodField()
     
     class Meta:
         model = Medio
-        exclude = ["updated_at"]
+        fields = ["MDO_Id_Medio", "MDO_Nombre_Medio", "MDO_Descripcion_Medio", "created_at"]
     
     def get_created_at(self, instance):
         return instance.created_at.strftime("%B %d, %Y")
 
+class ComportamientoSerializer(serializers.ModelSerializer):
+    created_at = serializers.SerializerMethodField()
+    
+    class Meta:
+        model = Comportamiento
+        fields = ["CMP_Id_Comportamiento", "CMP_Descripcion_Comportamiento", "CMP_Persona_Comportamiento", "created_at"]
+    
+    def get_created_at(self, instance):
+        return instance.created_at.strftime("%B %d, %Y")
+
+class ComportamientoMedioSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = ComportamientoMedio
+        fields = ["CMP_MDO_Id", "CMP_MDO_Comportamiento_Id", "CMP_MDO_Medio_Id"]
+
 class PreguntaSerializer(serializers.ModelSerializer):
-    PRG_Nombre_Pregunta = serializers.CharField(max_length=150)
     created_at = serializers.SerializerMethodField()
     
     class Meta:
         model = Pregunta
-        exclude = ["updated_at"]
+        fields = ["PRG_Id_Pregunta", "PRG_Nombre_Pregunta", "created_at"]
+    
+    def get_created_at(self, instance):
+        return instance.created_at.strftime("%B %d, %Y")
+
+class ObjetivoSerializer(serializers.ModelSerializer):
+    created_at = serializers.SerializerMethodField()
+    
+    class Meta:
+        model = Objetivo
+        fields = ["OBJ_Id_Objetivo", "OBJ_Persona_Objetivo", "OBJ_Pregunta_Objetivo", "OBJ_Respuesta_Objetivo", "created_at"]
     
     def get_created_at(self, instance):
         return instance.created_at.strftime("%B %d, %Y")

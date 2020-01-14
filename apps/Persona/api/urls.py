@@ -6,8 +6,12 @@ from apps.Persona.api.views import CurrentUserAPIView
 
 router = DefaultRouter()
 router.register(r"escolaridad", views.EscolaridadViewSet)
+router.register(r"persona", views.PersonaViewSet)
 router.register(r"medio", views.MedioViewSet)
+router.register(r"comportamiento", views.ComportamientoViewSet)
+router.register(r"comportamiento-medio", views.ComportamientoMedioViewSet)
 router.register(r"pregunta", views.PreguntaViewSet)
+router.register(r"objetivo", views.ObjetivoViewSet)
 
 urlpatterns = [
     path("usuario/", CurrentUserAPIView.as_view(), name="usuario-actual"),
