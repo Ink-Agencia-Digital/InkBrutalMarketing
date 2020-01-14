@@ -7,16 +7,24 @@ from rest_framework.generics import get_object_or_404
 from apps.Persona.api.serializers import (UserDisplaySerializer, EscolaridadSerializer,
                                           MedioSerializer, PreguntaSerializer, PersonaSerializer,
                                           ComportamientoSerializer, ComportamientoMedioSerializer,
-                                          ObjetivoSerializer)
+                                          ObjetivoSerializer, EmpresaSerializer, ProyectoSerializer)
 from apps.Persona.api.permissions import IsAuthorOrReadOnly
 from apps.Persona.models import (Escolaridad, Medio, Pregunta, Persona, Comportamiento,
-                                 ComportamientoMedio, Objetivo)
+                                 ComportamientoMedio, Objetivo, Empresa, Proyecto)
 
 class CurrentUserAPIView(APIView):
     
     def get(self, request):
         serializer = UserDisplaySerializer(request.user)
         return Response(serializer.data)
+
+class EmpresaViewSet(viewsets.ModelViewSet):
+    queryset = Empresa.objects.all()
+    serializer_class = EmpresaSerializer
+    pemission_classes = [IsAuthenticated, IsAuthorOrReadOnly]
+    
+    def perform_create(self, serializer):
+        serializer.save()
 
 class EscolaridadViewSet(viewsets.ModelViewSet):
     queryset = Escolaridad.objects.all()
@@ -29,6 +37,14 @@ class EscolaridadViewSet(viewsets.ModelViewSet):
 class PersonaViewSet(viewsets.ModelViewSet):
     queryset = Persona.objects.all()
     serializer_class = PersonaSerializer
+    pemission_classes = [IsAuthenticated, IsAuthorOrReadOnly]
+    
+    def perform_create(self, serializer):
+        serializer.save()
+
+class ProyectoViewSet(viewsets.ModelViewSet):
+    queryset = Proyecto.objects.all()
+    serializer_class = ProyectoSerializer
     pemission_classes = [IsAuthenticated, IsAuthorOrReadOnly]
     
     def perform_create(self, serializer):

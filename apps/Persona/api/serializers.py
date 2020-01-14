@@ -1,6 +1,8 @@
 from rest_framework import serializers
 from apps.Administrador.models import CustomUser
-from apps.Persona.models import Escolaridad, Medio, Comportamiento, Persona, Pregunta, Objetivo, ComportamientoMedio
+from apps.Persona.models import (Escolaridad, Medio, Comportamiento, Persona,
+                                 Pregunta, Objetivo, ComportamientoMedio, Empresa,
+                                 Proyecto)
 
 
 class UserDisplaySerializer(serializers.ModelSerializer):
@@ -8,6 +10,16 @@ class UserDisplaySerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
         fields = ["username"]
+
+class EmpresaSerializer(serializers.ModelSerializer):
+    created_at = serializers.SerializerMethodField()
+    
+    class Meta:
+        model = Empresa
+        fields = ["EMP_Id_Empresa", "EMP_Nombre_Empresa", "created_at"]
+    
+    def get_created_at(self, instance):
+        return instance.created_at.strftime("%B %d, %Y")
 
 class EscolaridadSerializer(serializers.ModelSerializer):
     created_at = serializers.SerializerMethodField()
@@ -24,7 +36,17 @@ class PersonaSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Persona
-        fields = ["PSN_Id_Persona", "PSN_Nombres_Persona", "created_at", "PSN_Apellidos_Persona", "PSN_Edad_Persona", "PSN_Escoladidad_Persona", "PSN_Sexo_Persona", "PSN_Cargo_Persona"]
+        fields = ["PSN_Id_Persona", "PSN_Nombres_Persona", "PSN_Apellidos_Persona", "PSN_Edad_Persona", "PSN_Escoladidad_Persona", "PSN_Sexo_Persona", "PSN_Cargo_Persona", "created_at"]
+    
+    def get_created_at(self, instance):
+        return instance.created_at.strftime("%B %d, %Y")
+
+class ProyectoSerializer(serializers.ModelSerializer):
+    created_at = serializers.SerializerMethodField()
+    
+    class Meta:
+        model = Proyecto
+        fields = ["PRY_Id_Proyecto", "PRY_Nombre_Proyecto", "PRY_Empresa_Proyecto", "PRY_Persona_Proyecto", "created_at"]
     
     def get_created_at(self, instance):
         return instance.created_at.strftime("%B %d, %Y")
