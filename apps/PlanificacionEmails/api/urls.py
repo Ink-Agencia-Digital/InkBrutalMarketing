@@ -4,6 +4,7 @@ from apps.PlanificacionEmails.api import views
 
 router = DefaultRouter()
 router.register(r"tipo-campana", views.TipoCampanaViewSet)
+router.register(r"campana", views.CampanaViewSet)
 
 urlpatterns = [
     path("", include(router.urls)),
