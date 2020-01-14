@@ -6,18 +6,33 @@ class IdeaSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Idea
-        exclude = ["updated_at"]
+        fields = ["IDA_Id_Idea", "IDA_Descripcion_Idea", "created_at"]
     
     def get_created_at(self, instance):
         return instance.created_at.strftime("%B %d, %Y")
 
 class EstadoSerializer(serializers.ModelSerializer):
-    EST_Nombre_Estado = serializers.CharField(max_length=100)
     created_at = serializers.SerializerMethodField()
     
     class Meta:
         model = Estado
-        exclude = ["updated_at"]
+        fields = ["EST_Id_Estado", "EST_Nombre_Estado", "EST_Descripcion_Estado", "created_at"]
     
     def get_created_at(self, instance):
         return instance.created_at.strftime("%B %d, %Y")
+
+class EtapaSerializer(serializers.ModelSerializer):
+    created_at = serializers.SerializerMethodField()
+    
+    class Meta:
+        model = Etapa
+        fields = ["ETP_Id_Etapa", "ETP_Descripcion_Etapa", "ETP_Idea_Etapa", "ETP_Estado_Etapa", "created_at"]
+    
+    def get_created_at(self, instance):
+        return instance.created_at.strftime("%B %d, %Y")
+
+class EmbudoSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = Embudo
+        fields = ["EBD_Id_Embudo", "EBD_Persona_Embudo", "EBD_Etapa_Embudo"]
