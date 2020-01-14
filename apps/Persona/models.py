@@ -2,6 +2,16 @@ from django.db import models
 
 # Create your models here.
 
+# Modelo de la tabla Empresa
+class Empresa(models.Model):
+    EMP_Id_Empresa = models.BigAutoField(primary_key = True)
+    EMP_Nombre_Empresa = models.CharField(max_length = 100)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+    class Meta:
+        db_table = 'TBL_Empresas'
+
 # Modelo de la tabla de Escolaridad
 class Escolaridad(models.Model):
     ESC_Id_Escolaridad = models.BigAutoField(primary_key = True)
@@ -26,6 +36,18 @@ class Persona(models.Model):
     
     class Meta:
         db_table = 'TBL_Personas'
+
+# Modelo de la tabla Proyecto
+class Proyecto(models.Model):
+    PRY_Id_Proyecto = models.BigAutoField(primary_key = True)
+    PRY_Nombre_Proyecto = models.CharField(max_length = 150)
+    PRY_Empresa_Proyecto = models.ForeignKey(Empresa, on_delete=models.CASCADE, related_name='FK_Proyecto_Empresa_Empresa_Id')
+    PRY_Persona_Proyecto = models.ForeignKey(Persona, on_delete=models.CASCADE, related_name='FK_Proyecto_Persona_Persona_Id')
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+    class Meta:
+        db_table = 'TBL_Proyectos'
 
 # Modelo de la tabla de Medios
 class Medio(models.Model):
