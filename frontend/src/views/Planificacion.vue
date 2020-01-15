@@ -54,12 +54,16 @@
               />
             </td>
             <td>
-              <input
-                type="text"
-                class="form-control"
-                id="tipo"
-                placeholder="Tipo de la campaña"
-              />
+              <select name="tipo" id="tipo" class="form-control">
+                <option value="">--Seleccione un tipo de campaña--</option>
+                <option
+                  v-for="tc in tipoCampanas"
+                  :key="tc.TCM_Id_Tipo_Campana"
+                  :value="tc.TCM_Id_Tipo_Campana"
+                >
+                  {{ tc.TCM_Nombre_Tipo_Campana }}
+                </option>
+              </select>
             </td>
             <td>
               <input
@@ -70,9 +74,12 @@
               />
             </td>
             <td>
-              <select id="frecuencia" class="form-control">
-                <option selected>Frecuencia</option>
-              </select>
+              <input
+                type="text"
+                class="form-control"
+                id="frecuencia"
+                placeholder="Frecuencia"
+              />
             </td>
             <td>
               <input
@@ -83,334 +90,23 @@
               />
             </td>
             <td>
-              <select id="persona" class="form-control">
-                <option selected>Segmentación</option>
-              </select>
+              <input
+                type="text"
+                class="form-control"
+                id="segmentacion"
+                placeholder="Segmentacion"
+              />
             </td>
             <td>
               <select id="status" class="form-control">
-                <option selected>Status</option>
-              </select>
-            </td>
-            <td>
-              <input
-                type="text"
-                class="form-control"
-                id="link"
-                placeholder="Link del texto"
-              />
-            </td>
-            <td>
-              <select id="idea" class="form-control">
-                <option selected>Contenido</option>
-              </select>
-            </td>
-          </tr>
-          <tr>
-            <th scope="row">
-              2
-            </th>
-            <td>
-              <input
-                type="text"
-                class="form-control"
-                id="nombre"
-                placeholder="Nombre de la campaña"
-              />
-            </td>
-            <td>
-              <input
-                type="text"
-                class="form-control"
-                id="tipo"
-                placeholder="Tipo de la campaña"
-              />
-            </td>
-            <td>
-              <input
-                type="date"
-                class="form-control"
-                id="fecha"
-                placeholder="Fecha de envío"
-              />
-            </td>
-            <td>
-              <select id="frecuencia" class="form-control">
-                <option selected>Frecuencia</option>
-              </select>
-            </td>
-            <td>
-              <input
-                type="time"
-                class="form-control"
-                id="hora"
-                placeholder="Horario"
-              />
-            </td>
-            <td>
-              <select id="persona" class="form-control">
-                <option selected>Segmentación</option>
-              </select>
-            </td>
-            <td>
-              <select id="status" class="form-control">
-                <option selected>Status</option>
-              </select>
-            </td>
-            <td>
-              <input
-                type="text"
-                class="form-control"
-                id="link"
-                placeholder="Link del texto"
-              />
-            </td>
-            <td>
-              <select id="idea" class="form-control">
-                <option selected>Contenido</option>
-              </select>
-            </td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td>
-              <input
-                type="text"
-                class="form-control"
-                id="nombre"
-                placeholder="Nombre de la campaña"
-              />
-            </td>
-            <td>
-              <input
-                type="text"
-                class="form-control"
-                id="tipo"
-                placeholder="Tipo de la campaña"
-              />
-            </td>
-            <td>
-              <input
-                type="date"
-                class="form-control"
-                id="fecha"
-                placeholder="Fecha de envío"
-              />
-            </td>
-            <td>
-              <select id="frecuencia" class="form-control">
-                <option selected>Frecuencia</option>
-              </select>
-            </td>
-            <td>
-              <input
-                type="time"
-                class="form-control"
-                id="hora"
-                placeholder="Horario"
-              />
-            </td>
-            <td>
-              <select id="persona" class="form-control">
-                <option selected>Segmentación</option>
-              </select>
-            </td>
-            <td>
-              <select id="status" class="form-control">
-                <option selected>Status</option>
-              </select>
-            </td>
-            <td>
-              <input
-                type="text"
-                class="form-control"
-                id="link"
-                placeholder="Link del texto"
-              />
-            </td>
-            <td>
-              <select id="idea" class="form-control">
-                <option selected>Contenido</option>
-              </select>
-            </td>
-          </tr>
-          <tr>
-            <th scope="row">4</th>
-            <td>
-              <input
-                type="text"
-                class="form-control"
-                id="nombre"
-                placeholder="Nombre de la campaña"
-              />
-            </td>
-            <td>
-              <input
-                type="text"
-                class="form-control"
-                id="tipo"
-                placeholder="Tipo de la campaña"
-              />
-            </td>
-            <td>
-              <input
-                type="date"
-                class="form-control"
-                id="fecha"
-                placeholder="Fecha de envío"
-              />
-            </td>
-            <td>
-              <select id="frecuencia" class="form-control">
-                <option selected>Frecuencia</option>
-              </select>
-            </td>
-            <td>
-              <input
-                type="time"
-                class="form-control"
-                id="hora"
-                placeholder="Horario"
-              />
-            </td>
-            <td>
-              <select id="persona" class="form-control">
-                <option selected>Segmentación</option>
-              </select>
-            </td>
-            <td>
-              <select id="status" class="form-control">
-                <option selected>Status</option>
-              </select>
-            </td>
-            <td>
-              <input
-                type="text"
-                class="form-control"
-                id="link"
-                placeholder="Link del texto"
-              />
-            </td>
-            <td>
-              <select id="idea" class="form-control">
-                <option selected>Contenido</option>
-              </select>
-            </td>
-          </tr>
-          <tr>
-            <th scope="row">
-              5
-            </th>
-            <td>
-              <input
-                type="text"
-                class="form-control"
-                id="nombre"
-                placeholder="Nombre de la campaña"
-              />
-            </td>
-            <td>
-              <input
-                type="text"
-                class="form-control"
-                id="tipo"
-                placeholder="Tipo de la campaña"
-              />
-            </td>
-            <td>
-              <input
-                type="date"
-                class="form-control"
-                id="fecha"
-                placeholder="Fecha de envío"
-              />
-            </td>
-            <td>
-              <select id="frecuencia" class="form-control">
-                <option selected>Frecuencia</option>
-              </select>
-            </td>
-            <td>
-              <input
-                type="time"
-                class="form-control"
-                id="hora"
-                placeholder="Horario"
-              />
-            </td>
-            <td>
-              <select id="persona" class="form-control">
-                <option selected>Segmentación</option>
-              </select>
-            </td>
-            <td>
-              <select id="status" class="form-control">
-                <option selected>Status</option>
-              </select>
-            </td>
-            <td>
-              <input
-                type="text"
-                class="form-control"
-                id="link"
-                placeholder="Link del texto"
-              />
-            </td>
-            <td>
-              <select id="idea" class="form-control">
-                <option selected>Contenido</option>
-              </select>
-            </td>
-          </tr>
-          <tr>
-            <th scope="row">
-              6
-            </th>
-            <td>
-              <input
-                type="text"
-                class="form-control"
-                id="nombre"
-                placeholder="Nombre de la campaña"
-              />
-            </td>
-            <td>
-              <input
-                type="text"
-                class="form-control"
-                id="tipo"
-                placeholder="Tipo de la campaña"
-              />
-            </td>
-            <td>
-              <input
-                type="date"
-                class="form-control"
-                id="fecha"
-                placeholder="Fecha de envío"
-              />
-            </td>
-            <td>
-              <select id="frecuencia" class="form-control">
-                <option selected>Frecuencia</option>
-              </select>
-            </td>
-            <td>
-              <input
-                type="time"
-                class="form-control"
-                id="hora"
-                placeholder="Horario"
-              />
-            </td>
-            <td>
-              <select id="persona" class="form-control">
-                <option selected>Segmentación</option>
-              </select>
-            </td>
-            <td>
-              <select id="status" class="form-control">
-                <option selected>Status</option>
+                <option selected value="">--Seleccione un Status--</option>
+                <option 
+                  v-for="est in estados"
+                  :key="est.EST_Id_Estado"
+                  :value="est.EST_Id_Estado"
+                >
+                  {{ est.EST_Nombre_Estado }}
+                </option>
               </select>
             </td>
             <td>
@@ -440,3 +136,33 @@
     </form>
   </div>
 </template>
+
+<script>
+import { apiService } from "@/common/api.service.js";
+export default {
+  data() {
+    return {
+      tipoCampanas: [],
+      estados: []
+    };
+  },
+  methods: {
+    getTipoCampanas() {
+      let endpoint = "/api/tipo-campana/";
+      apiService(endpoint).then(data => {
+        this.tipoCampanas.push(...data.results);
+      });
+    },
+    getEstados() {
+      let endpoint = "/api/estado/";
+      apiService(endpoint).then(data => {
+        this.estados.push(...data.results);
+      });
+    }
+  },
+  created() {
+    this.getTipoCampanas();
+    this.getEstados();
+  }
+};
+</script>

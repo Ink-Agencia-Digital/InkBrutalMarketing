@@ -4,7 +4,7 @@
       <br /><br />
       <h1>Empresa</h1>
       <br />
-      <router-link :to="{ name: 'Empresa' }" class="b btn-info">
+      <router-link :to="{ name: 'empresa' }" class="b btn-info">
         Crear
       </router-link>
       <br /><br /><br />
@@ -26,52 +26,20 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
+          <tr v-for="emp in empresas" :key="emp.EMP_Id_Empresa">
             <th scope="row">
-              1
+              {{ emp.EMP_Id_Empresa }}
             </th>
             <td>
-              <label class="" for="empresa">Empresa</label>
+              <label class="" for="empresa">
+                {{ emp.EMP_Nombre_Empresa }}
+              </label>
             </td>
             <td>
               <label class="" for="proyecto">Proyecto</label>
             </td>
             <td>
-              <router-link :to="{ name: 'Empresa' }" class="bp btn-primary">
-                Modificar
-              </router-link>
-              <button type="button" class="bpn btn-danger">Eliminar</button>
-            </td>
-          </tr>
-          <tr>
-            <th scope="row">
-              2
-            </th>
-            <td>
-              <label class="" for="empresa">Empresa</label>
-            </td>
-            <td>
-              <label class="" for="proyecto">Proyecto</label>
-            </td>
-            <td>
-              <router-link :to="{ name: 'Empresa' }" class="bp btn-primary">
-                Modificar
-              </router-link>
-              <button type="button" class="bpn btn-danger">Eliminar</button>
-            </td>
-          </tr>
-          <tr>
-            <th scope="row">
-              3
-            </th>
-            <td>
-              <label class="" for="empresa">Empresa</label>
-            </td>
-            <td>
-              <label class="" for="proyecto">Proyecto</label>
-            </td>
-            <td>
-              <router-link :to="{ name: 'Empresa' }" class="bp btn-primary">
+              <router-link :to="{ name: 'empresa' }" class="bp btn-primary">
                 Modificar
               </router-link>
               <button type="button" class="bpn btn-danger">Eliminar</button>
@@ -100,52 +68,22 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
+          <tr v-for="psn in personas" :key="psn.PSN_Id_Persona">
             <th scope="row">
-              1
+              {{ psn.PSN_Id_Persona }}
             </th>
             <td>
-              <label class="" for="nombre">Nombre</label>
+              <label class="" for="nombre">
+                {{ psn.PSN_Nombres_Persona }}
+              </label>
             </td>
             <td>
-              <label class="" for="apellido">Apellido</label>
+              <label class="" for="apellido">
+                {{ psn.PSN_Apellidos_Persona }}
+              </label>
             </td>
             <td>
-              <router-link :to="{ name: 'Empresa' }" class="bp btn-primary">
-                Modificar
-              </router-link>
-              <button type="button" class="bpn btn-danger">Eliminar</button>
-            </td>
-          </tr>
-          <tr>
-            <th scope="row">
-              2
-            </th>
-            <td>
-              <label class="" for="nombre">Nombre</label>
-            </td>
-            <td>
-              <label class="" for="apellido">Apellido</label>
-            </td>
-            <td>
-              <router-link :to="{ name: 'Empresa' }" class="bp btn-primary">
-                Modificar
-              </router-link>
-              <button type="button" class="bpn btn-danger">Eliminar</button>
-            </td>
-          </tr>
-          <tr>
-            <th scope="row">
-              3
-            </th>
-            <td>
-              <label class="" for="empresa">Nombre</label>
-            </td>
-            <td>
-              <label class="" for="proyecto">Apellido</label>
-            </td>
-            <td>
-              <router-link :to="{ name: 'Empresa' }" class="bp btn-primary">
+              <router-link :to="{ name: 'empresa' }" class="bp btn-primary">
                 Modificar
               </router-link>
               <button type="button" class="bpn btn-danger">Eliminar</button>
@@ -156,6 +94,36 @@
     </div>
   </div>
 </template>
+
+<script>
+import { apiService } from "@/common/api.service.js";
+export default {
+  data() {
+    return {
+      empresas: [],
+      personas: []
+    };
+  },
+  methods: {
+    getEmpresas() {
+      let endpoint = "/api/empresa/";
+      apiService(endpoint).then(data => {
+        this.empresas.push(...data.results);
+      });
+    },
+    getPersonas() {
+      let endpoint = "/api/persona/";
+      apiService(endpoint).then(data => {
+        this.personas.push(...data.results);
+      });
+    }
+  },
+  created() {
+    this.getEmpresas();
+    this.getPersonas();
+  }
+};
+</script>
 
 <style>
 .b {

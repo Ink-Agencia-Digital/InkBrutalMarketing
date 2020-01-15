@@ -19,43 +19,43 @@ const routes = [
     component: Inicio
   },
   {
-    path: "/principalEmpresa",
-    name: "PrincipalEmpresa",
+    path: "/principal-empresa",
+    name: "principal_empresa",
     component: PrincipalEmpresa
   },
   {
     path: "/empresa",
-    name: "Empresa",
+    name: "empresa",
     component: Empresa
   },
   {
     path: "/comportamiento",
-    name: "Comportamiento",
+    name: "comportamiento",
     component: Comportamiento
   },
   {
     path: "/objetivo",
-    name: "Objetivo",
+    name: "objetivo",
     component: Objetivo
   },
   {
     path: "/proceso",
-    name: "Proceso",
+    name: "proceso",
     component: Proceso
   },
   {
     path: "/lista",
-    name: "Lista",
+    name: "lista",
     component: Lista
   },
   {
     path: "/planificacion",
-    name: "Planificacion",
+    name: "planificacion",
     component: Planificacion
   },
   {
     path: "/calendario",
-    name: "Calendario",
+    name: "calendario",
     component: Calendario
   }
 ];

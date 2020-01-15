@@ -7,8 +7,15 @@
         <br />
         <div class="form-group">
           <h3>Persona</h3>
-          <select id="persona" class="form-control">
-            <option selected>Persona</option>
+          <select id="persona" class="form-control" required>
+            <option selected value="">--Seleccione una persona--</option>
+            <option
+              v-for="psn in personas"
+              :key="psn.PSN_Id_Persona"
+              :value="psn.PSN_Id_Persona"
+            >
+              {{ psn.PSN_Nombres_Persona }} {{ psn.PSN_Apellidos_Persona }}
+            </option>
           </select>
         </div>
         <br />
@@ -28,68 +35,15 @@
             <div class="row">
               <div class="col">
                 <ul>
-                  <li>
+                  <li v-for="md in medios" :key="md.MDO_Id_Medio">
                     <input
                       type="checkbox"
                       class="custom-control-input"
                       id="medio1"
+                      :value="md.MDO_Id_Medio"
                     />
                     <label class="custom-control-label" for="medio1">
-                      Redes sociales
-                    </label>
-                  </li>
-                  <li>
-                    <input
-                      type="checkbox"
-                      class="custom-control-input"
-                      id="medio2"
-                    />
-                    <label class="custom-control-label" for="medio2">
-                      Blog
-                    </label>
-                  </li>
-                  <li>
-                    <input
-                      type="checkbox"
-                      class="custom-control-input"
-                      id="medio3"
-                    />
-                    <label class="custom-control-label" for="medio3">
-                      Anuncios en medios tradicionales
-                    </label>
-                  </li>
-                </ul>
-              </div>
-              <div class="col">
-                <ul>
-                  <li>
-                    <input
-                      type="checkbox"
-                      class="custom-control-input"
-                      id="medio4"
-                    />
-                    <label class="custom-control-label" for="medio4">
-                      Anuncios de medios digitales
-                    </label>
-                  </li>
-                  <li>
-                    <input
-                      type="checkbox"
-                      class="custom-control-input"
-                      id="medio5"
-                    />
-                    <label class="custom-control-label" for="medio5">
-                      Email
-                    </label>
-                  </li>
-                  <li>
-                    <input
-                      type="checkbox"
-                      class="custom-control-input"
-                      id="medio6"
-                    />
-                    <label class="custom-control-label" for="medio6">
-                      Télefono
+                      {{ md.MDO_Nombre_Medio }}
                     </label>
                   </li>
                 </ul>
@@ -119,6 +73,36 @@
     </div>
   </div>
 </template>
+
+<script>
+import { apiService } from "@/common/api.service.js";
+export default {
+  data() {
+    return {
+      personas: [],
+      medios: []
+    };
+  },
+  methods: {
+    getPersonas() {
+      let endpoint = "/api/persona/";
+      apiService(endpoint).then(data => {
+        this.personas.push(...data.results);
+      });
+    },
+    getMedios() {
+      let endpoint = "/api/medio/";
+      apiService(endpoint).then(data => {
+        this.medios.push(...data.results);
+      });
+    }
+  },
+  created() {
+    this.getPersonas();
+    this.getMedios();
+  }
+};
+</script>
 
 <style>
 .background {

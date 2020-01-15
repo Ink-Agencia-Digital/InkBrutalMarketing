@@ -7,8 +7,15 @@
         <br />
         <div class="form-group">
           <h3>Persona</h3>
-          <select id="persona" class="form-control">
-            <option selected>Persona</option>
+          <select id="persona" class="form-control" required>
+            <option selected value="">--Seleccione una persona--</option>
+            <option
+              v-for="psn in personas"
+              :key="psn.PSN_Id_Persona"
+              :value="psn.PSN_Id_Persona"
+            >
+              {{ psn.PSN_Nombres_Persona }} {{ psn.PSN_Apellidos_Persona }}
+            </option>
           </select>
         </div>
         <br />
@@ -27,86 +34,20 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <th scope="row">1</th>
+            <tr v-for="prg in preguntas" :key="prg.PRG_Id_Pregunta">
+              <th scope="row">
+                {{ prg.PRG_Id_Pregunta }}
+              </th>
               <td>
-                <label class="" for="pregunta1">Pregunta</label>
+                <label class="">
+                  {{ prg.PRG_Nombre_Pregunta }}
+                </label>
               </td>
               <td>
                 <input
                   type="text"
                   class="form-control"
-                  id="otro"
-                  placeholder="Respuesta"
-                />
-              </td>
-            </tr>
-            <tr>
-              <th scope="row">2</th>
-              <td>
-                <label class="" for="pregunta2">Pregunta</label>
-              </td>
-              <td>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="respuesta"
-                  placeholder="Respuesta"
-                />
-              </td>
-            </tr>
-            <tr>
-              <th scope="row">3</th>
-              <td>
-                <label class="" for="pregunta3">Pregunta</label>
-              </td>
-              <td>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="respuesta"
-                  placeholder="Respuesta"
-                />
-              </td>
-            </tr>
-            <tr>
-              <th scope="row">4</th>
-              <td>
-                <label class="" for="pregunta4">Pregunta</label>
-              </td>
-              <td>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="respuesta"
-                  placeholder="Respuesta"
-                />
-              </td>
-            </tr>
-            <tr>
-              <th scope="row">5</th>
-              <td>
-                <label class="" for="pregunta5">Pregunta</label>
-              </td>
-              <td>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="respuesta"
-                  placeholder="Respuesta"
-                />
-              </td>
-            </tr>
-            <tr>
-              <th scope="row">6</th>
-              <td>
-                <label class="" for="pregunta6">Pregunta</label>
-              </td>
-              <td>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="respuesta"
+                  :id="prg.PRG_Id_Pregunta"
                   placeholder="Respuesta"
                 />
               </td>
@@ -125,3 +66,33 @@
     </div>
   </div>
 </template>
+
+<script>
+import { apiService } from "@/common/api.service.js";
+export default {
+  data() {
+    return {
+      personas: [],
+      preguntas: []
+    };
+  },
+  methods: {
+    getPersonas() {
+      let endpoint = "/api/persona/";
+      apiService(endpoint).then(data => {
+        this.personas.push(...data.results);
+      });
+    },
+    getPreguntas() {
+      let endpoint = "/api/pregunta/";
+      apiService(endpoint).then(data => {
+        this.preguntas.push(...data.results);
+      });
+    }
+  },
+  created() {
+    this.getPersonas();
+    this.getPreguntas();
+  }
+};
+</script>

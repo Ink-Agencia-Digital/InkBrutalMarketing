@@ -7,8 +7,15 @@
         <br />
         <div class="form-group">
           <h3>Persona</h3>
-          <select id="persona" class="form-control">
-            <option selected>Persona</option>
+          <select id="persona" class="form-control" required>
+            <option selected value="">--Seleccione una persona--</option>
+            <option
+              v-for="psn in personas"
+              :key="psn.PSN_Id_Persona"
+              :value="psn.PSN_Id_Persona"
+            >
+              {{ psn.PSN_Nombres_Persona }} {{ psn.PSN_Apellidos_Persona }}
+            </option>
           </select>
         </div>
         <br />
@@ -27,100 +34,26 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
+            <tr v-for="etp in etapas" :key="etp.ETP_Id_Etapa">
               <th scope="row">
-                1
+                {{ etp.ETP_Id_Etapa }}
               </th>
               <td>
-                <label class="" for="etapa1">Etapa</label>
+                <label class="" for="etapa1">
+                  {{ etp.ETP_Descripcion_Etapa }}
+                </label>
               </td>
               <td>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="idea"
-                  placeholder="Idea"
-                />
-              </td>
-            </tr>
-            <tr>
-              <th scope="row">
-                2
-              </th>
-              <td>
-                <label class="" for="etapa2">Etapa</label>
-              </td>
-              <td>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="idea"
-                  placeholder="Idea"
-                />
-              </td>
-            </tr>
-            <tr>
-              <th scope="row">
-                3
-              </th>
-              <td>
-                <label class="" for="etapa3">Etapa</label>
-              </td>
-              <td>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="idea"
-                  placeholder="Idea"
-                />
-              </td>
-            </tr>
-            <tr>
-              <th scope="row">
-                4
-              </th>
-              <td>
-                <label class="" for="etapa4">Etapa</label>
-              </td>
-              <td>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="idea"
-                  placeholder="Idea"
-                />
-              </td>
-            </tr>
-            <tr>
-              <th scope="row">
-                5
-              </th>
-              <td>
-                <label class="" for="etapa5">Etapa</label>
-              </td>
-              <td>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="idea"
-                  placeholder="Idea"
-                />
-              </td>
-            </tr>
-            <tr>
-              <th scope="row">
-                6
-              </th>
-              <td>
-                <label class="" for="etapa6">Etapa</label>
-              </td>
-              <td>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="idea"
-                  placeholder="Idea"
-                />
+                <select id="idea" class="form-control" required>
+                  <option selected value="">--Seleccione una Idea--</option>
+                  <option
+                    v-for="ida in ideas"
+                    :key="ida.IDA_Id_Idea"
+                    :value="ida.IDA_Id_Idea"
+                  >
+                    {{ ida.IDA_Descripcion_Idea }}
+                  </option>
+                </select>
               </td>
             </tr>
           </tbody>
@@ -137,3 +70,41 @@
     </div>
   </div>
 </template>
+
+<script>
+import { apiService } from "@/common/api.service.js";
+export default {
+  data() {
+    return {
+      personas: [],
+      etapas: [],
+      ideas: []
+    };
+  },
+  methods: {
+    getPersonas() {
+      let endpoint = "/api/persona/";
+      apiService(endpoint).then(data => {
+        this.personas.push(...data.results);
+      });
+    },
+    getEtapas() {
+      let endpoint = "/api/etapa/";
+      apiService(endpoint).then(data => {
+        this.etapas.push(...data.results);
+      });
+    },
+    getIdeas() {
+      let endpoint = "/api/idea/";
+      apiService(endpoint).then(data => {
+        this.ideas.push(...data.results);
+      });
+    }
+  },
+  created() {
+    this.getPersonas();
+    this.getEtapas();
+    this.getIdeas();
+  }
+};
+</script>
