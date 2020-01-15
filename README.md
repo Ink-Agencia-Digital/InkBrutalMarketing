@@ -46,3 +46,23 @@ pip freeze > requirements.txt
 
 # Para descargar las dependencias actuales del proyecto
 pip install -r requirements.txt
+
+# Instalación de VueJs
+npm install @vue/cli
+
+# Creación de un proyecto en VueJs
+vue create "nombre"
+    ->manually
+    ->(Babel - Router - Linter/Formatter)
+    ->Yes
+    ->Prettier
+    ->Lint on save
+    ->in package.json
+    ->No
+
+# Ejecutar el siguiente comando para instalar una dependencia en el entorno de desarrollo
+vue ui
+    Instalar laa dependencia webpack-bundle-tracker
+
+# Correr el proyecto VueJs
+npm run serve
