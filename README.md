@@ -38,6 +38,9 @@ pip install django-allauth
 pip install django-registration
 pip install django-crispy-forms
 
+# Para que se pueda comunicar Django REST con Vue
+pip install django-webpack-loader
+
 # Para guardar las dependencias (en un txt) necesarias para el proyecto
 pip freeze > requirements.txt
 
