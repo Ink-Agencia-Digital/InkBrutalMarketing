@@ -4,7 +4,7 @@
       <br /><br />
       <h1>Empresa</h1>
       <br />
-      <router-link :to="{ name: 'empresa' }" class="b btn-info">
+      <router-link :to="{ name: 'crear_empresa' }" class="b btn-info">
         Crear
       </router-link>
       <br /><br /><br />
@@ -40,7 +40,13 @@
               <label class="" for="proyecto">Proyecto</label>
             </td>
             <td>
-              <router-link :to="{ name: 'empresa' }" class="bp btn-primary">
+              <router-link
+                :to="{
+                  name: 'editar_empresa',
+                  params: { id: emp.EMP_Id_Empresa }
+                }"
+                class="bp btn-primary"
+              >
                 Modificar
               </router-link>
               <button
@@ -67,7 +73,7 @@
       <br />
       <h1>Persona</h1>
       <br />
-      <router-link :to="{ name: 'persona' }" class="b btn-info">
+      <router-link :to="{ name: 'crear_persona' }" class="b btn-info">
         Crear
       </router-link>
       <br /><br /><br />
@@ -104,7 +110,13 @@
               </label>
             </td>
             <td>
-              <router-link :to="{ name: 'persona' }" class="bp btn-primary">
+              <router-link
+                :to="{
+                  name: 'editar_persona',
+                  params: { id: psn.PSN_Id_Persona }
+                }"
+                class="bp btn-primary"
+              >
                 Modificar
               </router-link>
               <button

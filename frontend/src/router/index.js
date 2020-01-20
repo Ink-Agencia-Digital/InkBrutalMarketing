@@ -1,9 +1,14 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Inicio from "@/views/Inicio";
-import Empresa from "@/views/Empresa";
-import PrincipalEmpresa from "@/views/PrincipalEmpresa";
-import Persona from "@/views/Persona";
+
+import ListarEmpresa from "@/views/Empresa/Listar";
+import CrearEmpresa from "@/views/Empresa/Crear";
+import EditarEmpresa from "@/views/Empresa/Editar";
+
+import CrearPersona from "@/views/Persona/Crear";
+import EditarPersona from "@/views/Persona/Editar";
+
 import Proyecto from "@/views/Proyecto";
 import PrincipalProyecto from "@/views/PrincipalProyecto";
 import PrincipalMedio from "@/views/PrincipalMedio";
@@ -27,19 +32,31 @@ const routes = [
     component: Inicio
   },
   {
-    path: "/principal-empresa",
-    name: "principal_empresa",
-    component: PrincipalEmpresa
+    path: "/listar-empresa",
+    name: "listar_empresa",
+    component: ListarEmpresa
   },
   {
-    path: "/empresa",
-    name: "empresa",
-    component: Empresa
+    path: "/crear-empresa",
+    name: "crear_empresa",
+    component: CrearEmpresa
   },
   {
-    path: "/persona",
-    name: "persona",
-    component: Persona
+    path: "/editar-empresa/:id",
+    name: "editar_empresa",
+    component: EditarEmpresa,
+    props: true
+  },
+  {
+    path: "/crear-persona",
+    name: "crear_persona",
+    component: CrearPersona
+  },
+  {
+    path: "/editar-persona/:id",
+    name: "editar_persona",
+    component: EditarPersona,
+    props: true
   },
   {
     path: "/principal-proyecto",

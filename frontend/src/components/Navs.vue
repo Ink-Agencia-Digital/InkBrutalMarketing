@@ -14,7 +14,7 @@
           >
         </li>
         <li class="nav-item">
-          <router-link :to="{ name: 'principal_empresa' }" class="nav-link">
+          <router-link :to="{ name: 'listar_empresa' }" class="nav-link">
             Persona</router-link
           >
         </li>
