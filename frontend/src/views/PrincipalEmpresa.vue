@@ -50,6 +50,9 @@
       <br />
       <h1>Persona</h1>
       <br />
+      <router-link :to="{ name: 'persona' }" class="b btn-info">
+        Crear
+      </router-link>
       <table class="table">
         <thead class="thead-dark">
           <tr>
@@ -83,7 +86,7 @@
               </label>
             </td>
             <td>
-              <router-link :to="{ name: 'empresa' }" class="bp btn-primary">
+              <router-link :to="{ name: 'persona' }" class="bp btn-primary">
                 Modificar
               </router-link>
               <button type="button" class="bpn btn-danger">Eliminar</button>

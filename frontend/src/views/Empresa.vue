@@ -22,50 +22,6 @@
             </select>
           </div>
         </div>
-        <div class="form-row">
-          <div class="form-group col-md-8">
-            <label for="proyecto">Nombre del proyecto</label>
-            <input type="text" class="form-control" id="proyecto" />
-          </div>
-        </div>
-        <br /><br />
-        <h1>Persona</h1>
-        <br />
-        <div class="form-row">
-          <div class="form-group col-md-6">
-            <label for="nombre">Nombre</label>
-            <input type="text" class="form-control" id="nombre" />
-          </div>
-          <div class="form-group col-md-6">
-            <label for="apellido">Apellido</label>
-            <input type="text" class="form-control" id="apellido" />
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="form-group col-md-6">
-            <label for="edad">Edad</label>
-            <input type="number" class="form-control" id="edad" />
-          </div>
-          <div class="form-group col-md-6">
-            <label for="sexo">Sexo</label>
-            <select id="sexo" class="form-control">
-              <option selected>Elige uno</option>
-              <option>Femenino</option>
-              <option>Masculino</option>
-              <option>Otro</option>
-            </select>
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="form-group col-md-6">
-            <label for="escolaridad">Escolaridad</label>
-            <input type="text" class="form-control" id="escolaridad" />
-          </div>
-          <div class="form-group col-md-6">
-            <label for="cargo">Cargo</label>
-            <input type="text" class="form-control" id="cargo" />
-          </div>
-        </div>
         <p v-if="error" class="muted mt-2" style="color: red;">{{ error }}</p>
         <br />
         <button
@@ -91,15 +47,17 @@ export default {
   },
   methods: {
     onSubmit() {
-      if(!this.EMP_Nombre_Empresa) {
+      if (!this.EMP_Nombre_Empresa) {
         this.error = "Por favor digite un nombre de empresa";
       } else if (this.EMP_Nombre_Empresa.length > 100) {
-        this.error = "El nombre de la empresa no puede ser superior a 100 caracteres";
+        this.error =
+          "El nombre de la empresa no puede ser superior a 100 caracteres";
       } else {
         let endpoint = "/api/empresa/";
         let method = "POST";
-        apiService(endpoint, method, { EMP_Nombre_Empresa: this.EMP_Nombre_Empresa })
-          .then(() => {
+        apiService(endpoint, method, {
+          EMP_Nombre_Empresa: this.EMP_Nombre_Empresa
+        }).then(() => {
           this.$router.push({
             name: "principal_empresa"
           });
