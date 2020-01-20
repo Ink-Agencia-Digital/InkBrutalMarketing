@@ -13,6 +13,7 @@
               class="form-control"
               v-model="EMP_Nombre_Empresa"
               placeholder="Nombre Empresa"
+              maxlength="100"
             />
           </div>
           <div class="form-group col-md-6">

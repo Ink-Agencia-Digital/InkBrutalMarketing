@@ -8,7 +8,8 @@
         Crear
       </router-link>
       <br /><br /><br />
-      <table class="table">
+      <p v-if="error" class="muted mt-2" style="color: red;">{{ error }}</p>
+      <table class="table" id="tabla-data">
         <thead class="thead-dark">
           <tr>
             <th scope="col">
@@ -42,17 +43,34 @@
               <router-link :to="{ name: 'empresa' }" class="bp btn-primary">
                 Modificar
               </router-link>
-              <button type="button" class="bpn btn-danger">Eliminar</button>
+              <button
+                type="button"
+                class="bpn btn-danger"
+                @click="deleteEmpresa(emp.EMP_Id_Empresa)"
+              >
+                Eliminar
+              </button>
             </td>
           </tr>
         </tbody>
       </table>
+      <div class="my-4">
+        <p v-show="loadingEmpresas">...Cargando...</p>
+        <button
+          v-show="nextEmpresa"
+          @click="getEmpresas('MAS')"
+          class="btn btn-sm btn-outline-success"
+        >
+          Cargar Más
+        </button>
+      </div>
       <br />
       <h1>Persona</h1>
       <br />
       <router-link :to="{ name: 'persona' }" class="b btn-info">
         Crear
       </router-link>
+      <br /><br /><br />
       <table class="table">
         <thead class="thead-dark">
           <tr>
@@ -89,11 +107,27 @@
               <router-link :to="{ name: 'persona' }" class="bp btn-primary">
                 Modificar
               </router-link>
-              <button type="button" class="bpn btn-danger">Eliminar</button>
+              <button
+                type="button"
+                class="bpn btn-danger"
+                @click="deletePersona(psn.PSN_Id_Persona)"
+              >
+                Eliminar
+              </button>
             </td>
           </tr>
         </tbody>
       </table>
+      <div class="my-4">
+        <p v-show="loadingPersonas">...Cargando...</p>
+        <button
+          v-show="nextPersona"
+          @click="getPersonas('MAS')"
+          class="btn btn-sm btn-outline-success"
+        >
+          Cargar Más
+        </button>
+      </div>
     </div>
   </div>
 </template>
@@ -104,21 +138,77 @@ export default {
   data() {
     return {
       empresas: [],
-      personas: []
+      nextEmpresa: null,
+      loadingEmpresas: false,
+      personas: [],
+      loadingPersonas: false,
+      nextPersona: null
     };
   },
   methods: {
-    getEmpresas() {
+    getEmpresas(accion = null) {
       let endpoint = "/api/empresa/";
-      apiService(endpoint).then(data => {
-        this.empresas.push(...data.results);
-      });
+      if (accion == "DELETE") {
+        this.empresas = [];
+        apiService(endpoint).then(data => {
+          this.empresas.push(...data.results);
+        });
+      } else {
+        if (this.nextEmpresa) {
+          endpoint = this.nextEmpresa;
+        }
+        this.loadingEmpresas = true;
+        apiService(endpoint).then(data => {
+          this.empresas.push(...data.results);
+          this.loadingEmpresas = false;
+          if (data.next) {
+            this.nextEmpresa = data.next;
+          } else {
+            this.nextEmpresa = null;
+          }
+        });
+      }
     },
-    getPersonas() {
+    async deleteEmpresa(empresa) {
+      let endpoint = `/api/empresa/${empresa}/`;
+      try {
+        await apiService(endpoint, "DELETE");
+        this.getEmpresas("DELETE");
+      } catch (err) {
+        this.error = "No es posible eliminar el registro";
+      }
+    },
+    getPersonas(accion = null) {
       let endpoint = "/api/persona/";
-      apiService(endpoint).then(data => {
-        this.personas.push(...data.results);
-      });
+      if (accion == "DELETE") {
+        this.personas = [];
+        apiService(endpoint).then(data => {
+          this.personas.push(...data.results);
+        });
+      } else {
+        if (this.nextPersona) {
+          endpoint = this.nextPersona;
+        }
+        this.loadingPersonas = true;
+        apiService(endpoint).then(data => {
+          this.personas.push(...data.results);
+          this.loadingPersonas = false;
+          if (data.next) {
+            this.nextPersona = data.next;
+          } else {
+            this.nextPersona = null;
+          }
+        });
+      }
+    },
+    async deletePersona(persona) {
+      let endpoint = `/api/persona/${persona}/`;
+      try {
+        await apiService(endpoint, "DELETE");
+        this.getPersonas("DELETE");
+      } catch (err) {
+        this.error = "No es posible eliminar el registro";
+      }
     }
   },
   created() {

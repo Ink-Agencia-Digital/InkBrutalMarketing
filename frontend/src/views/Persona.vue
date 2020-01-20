@@ -1,43 +1,83 @@
 <template>
   <div class="container">
     <div class="col-md-8">
-      <form>
+      <form @submit.prevent="onSubmit">
         <br /><br />
         <h1>Persona</h1>
         <br />
         <div class="form-row">
           <div class="form-group col-md-6">
-            <label for="nombre">Nombre</label>
-            <input type="text" class="form-control" id="nombre" />
+            <label for="nombre">Nombres</label>
+            <input
+              type="text"
+              class="form-control"
+              v-model="PSN_Nombres_Persona"
+              placeholder="Nombres"
+              id="nombre"
+              maxlength="45"
+            />
           </div>
           <div class="form-group col-md-6">
-            <label for="apellido">Apellido</label>
-            <input type="text" class="form-control" id="apellido" />
+            <label for="apellido">Apellidos</label>
+            <input
+              type="text"
+              class="form-control"
+              v-model="PSN_Apellidos_Persona"
+              placeholder="Apellidos"
+              id="nombre"
+              maxlength="45"
+            />
           </div>
         </div>
         <div class="form-row">
           <div class="form-group col-md-6">
             <label for="edad">Edad</label>
-            <input type="number" class="form-control" id="edad" />
+            <input
+              type="text"
+              class="form-control"
+              v-model="PSN_Edad_Persona"
+              placeholder="Edad"
+              id="edad"
+              maxlength="3"
+            />
           </div>
           <div class="form-group col-md-6">
             <label for="sexo">Sexo</label>
-            <select id="sexo" class="form-control">
-              <option selected>Elige uno</option>
-              <option>Femenino</option>
-              <option>Masculino</option>
-              <option>Otro</option>
+            <select id="sexo" class="form-control" v-model="PSN_Sexo_Persona">
+              <option selected value="">--Selecciona un Sexo--</option>
+              <option value="Femenino">Femenino</option>
+              <option value="Masculino">Masculino</option>
             </select>
           </div>
         </div>
         <div class="form-row">
           <div class="form-group col-md-6">
             <label for="escolaridad">Escolaridad</label>
-            <input type="text" class="form-control" id="escolaridad" />
+            <select
+              id="escolaridad"
+              class="form-control"
+              v-model="PSN_Escoladidad_Persona"
+            >
+              <option value="">--Seleccione una escolaridad--</option>
+              <option
+                v-for="esc in escolaridades"
+                :key="esc.ESC_Id_Escolaridad"
+                :value="esc.ESC_Id_Escolaridad"
+              >
+                {{ esc.ESC_Nombre_Escolaridad }}
+              </option>
+            </select>
           </div>
           <div class="form-group col-md-6">
             <label for="cargo">Cargo</label>
-            <input type="text" class="form-control" id="cargo" />
+            <input
+              type="text"
+              class="form-control"
+              v-model="PSN_Cargo_Persona"
+              placeholder="Cargo"
+              id="cargo"
+              maxlength="45"
+            />
           </div>
         </div>
         <p v-if="error" class="muted mt-2" style="color: red;">{{ error }}</p>
@@ -54,6 +94,66 @@
     </div>
   </div>
 </template>
+<script>
+import { apiService } from "@/common/api.service.js";
+export default {
+  data() {
+    return {
+      escolaridades: [],
+      error: null
+    };
+  },
+  methods: {
+    onSubmit() {
+      if (!this.PSN_Nombres_Persona) {
+        this.error = "Por favor digite los nombres";
+      } else if (!this.PSN_Apellidos_Persona) {
+        this.error = "Por favor digite los apellidos";
+      } else if (!this.PSN_Edad_Persona) {
+        this.error = "Por favor digite la edad";
+      } else if (!this.PSN_Sexo_Persona) {
+        this.error = "Por favor seleccione el sexo";
+      } else if (!this.PSN_Escoladidad_Persona) {
+        this.error = "Por favor seleccione la escolaridad";
+      } else if (!this.PSN_Cargo_Persona) {
+        this.error = "Por favor digite el cargo";
+      } else if (this.PSN_Nombres_Persona.length > 45) {
+        this.error = "El nombre no puede ser superior a 45 caracteres";
+      } else if (this.PSN_Apellidos_Persona.length > 45) {
+        this.error = "El apellido no puede ser superior a 45 caracteres";
+      } else if (this.PSN_Edad_Persona.length > 3) {
+        this.error = "La edad no puede ser superior a 45 caracteres";
+      } else if (this.PSN_Cargo_Persona.length > 45) {
+        this.error = "El cargo no puede ser superior a 45 caracteres";
+      } else {
+        let endpoint = "/api/persona/";
+        let method = "POST";
+        apiService(endpoint, method, {
+          PSN_Nombres_Persona: this.PSN_Nombres_Persona,
+          PSN_Apellidos_Persona: this.PSN_Apellidos_Persona,
+          PSN_Edad_Persona: this.PSN_Edad_Persona,
+          PSN_Sexo_Persona: this.PSN_Sexo_Persona,
+          PSN_Escoladidad_Persona: this.PSN_Escoladidad_Persona,
+          PSN_Cargo_Persona: this.PSN_Cargo_Persona
+        }).then(() => {
+          this.$router.push({
+            name: "principal_empresa"
+          });
+        });
+      }
+    },
+    getEscolaridades() {
+      let endpoint = "/api/escolaridad/";
+      apiService(endpoint).then(data => {
+        this.escolaridades.push(...data.results);
+      });
+    }
+  },
+  created() {
+    this.getEscolaridades();
+  }
+};
+</script>
 
 <style>
 .dang {
