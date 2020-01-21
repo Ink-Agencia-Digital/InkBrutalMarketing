@@ -90,6 +90,9 @@
               Apellido
             </th>
             <th scope="col">
+              Escolaridad
+            </th>
+            <th scope="col">
               Acción
             </th>
           </tr>
@@ -107,6 +110,11 @@
             <td>
               <label class="" for="apellido">
                 {{ psn.PSN_Apellidos_Persona }}
+              </label>
+            </td>
+            <td>
+              <label class="" for="escolaridad">
+                {{ psn.PSN_Escoladidad_Persona.ESC_Nombre_Escolaridad }}
               </label>
             </td>
             <td>
@@ -191,7 +199,7 @@ export default {
       }
     },
     getPersonas(accion = null) {
-      let endpoint = "/api/persona/";
+      let endpoint = "/api/persona-join/";
       if (accion == "DELETE") {
         this.personas = [];
         apiService(endpoint).then(data => {

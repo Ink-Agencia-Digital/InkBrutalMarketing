@@ -7,7 +7,8 @@ from rest_framework.generics import get_object_or_404
 from apps.Persona.api.serializers import (UserDisplaySerializer, EscolaridadSerializer,
                                           MedioSerializer, PreguntaSerializer, PersonaSerializer,
                                           ComportamientoSerializer, ComportamientoMedioSerializer,
-                                          ObjetivoSerializer, EmpresaSerializer, ProyectoSerializer)
+                                          ObjetivoSerializer, EmpresaSerializer, ProyectoSerializer,
+                                          PersonaJoinSerializer, ProyectoJoinSerializer)
 from apps.Persona.api.permissions import IsAuthorOrReadOnly
 from apps.Persona.models import (Escolaridad, Medio, Pregunta, Persona, Comportamiento,
                                  ComportamientoMedio, Objetivo, Empresa, Proyecto)
@@ -42,6 +43,42 @@ class PersonaViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         serializer.save()
 
+class PersonaJoinViewSet(viewsets.ModelViewSet):
+    queryset = Persona.objects.all()
+    serializer_class = PersonaJoinSerializer
+    pemission_classes = [IsAuthenticated, IsAuthorOrReadOnly]
+
+class PersonaFiltroView(generics.ListAPIView):
+    serializer_class = PersonaSerializer
+    permission_classes = [IsAuthenticated, IsAuthorOrReadOnly]
+    
+    def get_queryset(self):
+        pk = int (self.kwargs.get("pk"))
+        queryset = Persona.objects.all()
+        queryset_j = Persona.objects.raw('''SELECT 
+                                         TBL_Personas.PSN_Id_Persona, 
+                                         TBL_Personas.PSN_Nombres_Persona, 
+                                         TBL_Personas.PSN_Apellidos_Persona, 
+                                         TBL_Personas.PSN_Edad_Persona, 
+                                         TBL_Personas.PSN_Escoladidad_Persona_id, 
+                                         TBL_Personas.PSN_Sexo_Persona, 
+                                         TBL_Personas.PSN_Cargo_Persona, 
+                                         TBL_Personas.created_at, 
+                                         TBL_Personas.updated_at 
+                                         FROM TBL_Personas 
+                                         inner join TBL_Proyectos 
+                                         on TBL_Proyectos.PRY_Persona_Proyecto_id = TBL_Personas.PSN_Id_Persona
+                                         where TBL_Proyectos.PRY_Empresa_Proyecto_id = %s''', [pk])
+        if queryset_j:
+            filtro = []
+            for psn in queryset:
+                if psn not in queryset_j:
+                    filtro.append(psn)
+            return filtro
+        else:
+            return queryset
+    
+
 class ProyectoViewSet(viewsets.ModelViewSet):
     queryset = Proyecto.objects.all()
     serializer_class = ProyectoSerializer
@@ -49,6 +86,11 @@ class ProyectoViewSet(viewsets.ModelViewSet):
     
     def perform_create(self, serializer):
         serializer.save()
+
+class ProyectoJoinViewSet(viewsets.ModelViewSet):
+    queryset = Proyecto.objects.all()
+    serializer_class = ProyectoJoinSerializer
+    pemission_classes = [IsAuthenticated, IsAuthorOrReadOnly]
 
 class MedioViewSet(viewsets.ModelViewSet):
     queryset = Medio.objects.all()

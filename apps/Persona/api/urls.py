@@ -8,7 +8,9 @@ router = DefaultRouter()
 router.register(r"empresa", views.EmpresaViewSet)
 router.register(r"escolaridad", views.EscolaridadViewSet)
 router.register(r"persona", views.PersonaViewSet)
+router.register(r"persona-join", views.PersonaJoinViewSet)
 router.register(r"proyecto", views.ProyectoViewSet)
+router.register(r"proyecto-join", views.ProyectoJoinViewSet)
 router.register(r"medio", views.MedioViewSet)
 router.register(r"comportamiento", views.ComportamientoViewSet)
 router.register(r"comportamiento-medio", views.ComportamientoMedioViewSet)
@@ -17,5 +19,6 @@ router.register(r"objetivo", views.ObjetivoViewSet)
 
 urlpatterns = [
     path("usuario/", CurrentUserAPIView.as_view(), name="usuario-actual"),
+    path("persona/<int:pk>/filtro/", views.PersonaFiltroView.as_view(), name="filtro-personas"),
     path("", include(router.urls)),
 ]

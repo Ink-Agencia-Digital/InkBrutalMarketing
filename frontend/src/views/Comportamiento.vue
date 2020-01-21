@@ -114,4 +114,9 @@ export default {
   padding-left: 0%;
   padding-right: 0%;
 }
+.custom-control-input:checked ~ .custom-control-label::before {
+  color: #fff;
+  border-color: rgb(52, 70, 117);
+  background-color: rgb(52, 70, 117);
+}
 </style>

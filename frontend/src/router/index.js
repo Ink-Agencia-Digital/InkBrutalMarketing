@@ -9,8 +9,10 @@ import EditarEmpresa from "@/views/Empresa/Editar";
 import CrearPersona from "@/views/Persona/Crear";
 import EditarPersona from "@/views/Persona/Editar";
 
-import Proyecto from "@/views/Proyecto";
-import PrincipalProyecto from "@/views/PrincipalProyecto";
+import ListarProyecto from "@/views/Proyecto/Listar";
+import CrearProyecto from "@/views/Proyecto/Crear";
+import EditarProyecto from "@/views/Proyecto/Editar";
+
 import PrincipalMedio from "@/views/PrincipalMedio";
 import Medio from "@/views/Medio";
 import PrincipalComportamiento from "@/views/PrincipalComportamiento";
@@ -59,14 +61,20 @@ const routes = [
     props: true
   },
   {
-    path: "/principal-proyecto",
-    name: "principal_proyecto",
-    component: PrincipalProyecto
+    path: "/listar-proyecto",
+    name: "listar_proyecto",
+    component: ListarProyecto
   },
   {
-    path: "/proyecto",
-    name: "proyecto",
-    component: Proyecto
+    path: "/crear-proyecto",
+    name: "crear_proyecto",
+    component: CrearProyecto
+  },
+  {
+    path: "/editar-proyecto/:id",
+    name: "editar_proyecto",
+    component: EditarProyecto,
+    props: true
   },
   {
     path: "/principal-medio",

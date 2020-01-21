@@ -137,7 +137,7 @@ export default {
           PSN_Cargo_Persona: this.PSN_Cargo_Persona
         }).then(() => {
           this.$router.push({
-            name: "principal_empresa"
+            name: "listar_empresa"
           });
         });
       }

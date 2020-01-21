@@ -41,8 +41,31 @@ class PersonaSerializer(serializers.ModelSerializer):
     def get_created_at(self, instance):
         return instance.created_at.strftime("%B %d, %Y")
 
+class PersonaJoinSerializer(serializers.ModelSerializer):
+    created_at = serializers.SerializerMethodField()
+    PSN_Escoladidad_Persona = EscolaridadSerializer(many = False)
+    
+    class Meta:
+        model = Persona
+        fields = ["PSN_Id_Persona", "PSN_Nombres_Persona", "PSN_Apellidos_Persona", "PSN_Edad_Persona", "PSN_Escoladidad_Persona", "PSN_Sexo_Persona", "PSN_Cargo_Persona", "created_at"]
+    
+    def get_created_at(self, instance):
+        return instance.created_at.strftime("%B %d, %Y")
+
 class ProyectoSerializer(serializers.ModelSerializer):
     created_at = serializers.SerializerMethodField()
+    
+    class Meta:
+        model = Proyecto
+        fields = ["PRY_Id_Proyecto", "PRY_Nombre_Proyecto", "PRY_Empresa_Proyecto", "PRY_Persona_Proyecto", "created_at"]
+    
+    def get_created_at(self, instance):
+        return instance.created_at.strftime("%B %d, %Y")
+
+class ProyectoJoinSerializer(serializers.ModelSerializer):
+    created_at = serializers.SerializerMethodField()
+    PRY_Empresa_Proyecto = EmpresaSerializer(many = False)
+    PRY_Persona_Proyecto = PersonaSerializer(many = False)
     
     class Meta:
         model = Proyecto
