@@ -24,7 +24,7 @@
           >
         </li>
         <li class="nav-item">
-          <router-link :to="{ name: 'comportamiento' }" class="nav-link">
+          <router-link :to="{ name: 'listar_comportamiento' }" class="nav-link">
             Comportamientos</router-link
           >
         </li>

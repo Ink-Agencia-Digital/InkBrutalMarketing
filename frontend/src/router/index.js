@@ -13,10 +13,13 @@ import ListarProyecto from "@/views/Proyecto/Listar";
 import CrearProyecto from "@/views/Proyecto/Crear";
 import EditarProyecto from "@/views/Proyecto/Editar";
 
+import ListarComportamiento from "@/views/Comportamiento/Listar";
+import CrearComportamiento from "@/views/Comportamiento/Crear";
+import EditarComportamiento from "@/views/Comportamiento/Editar";
+
 import PrincipalMedio from "@/views/PrincipalMedio";
 import Medio from "@/views/Medio";
-import PrincipalComportamiento from "@/views/PrincipalComportamiento";
-import Comportamiento from "@/views/Comportamiento";
+
 import PrincipalObjetivo from "@/views/PrincipalObjetivo";
 import Objetivo from "@/views/Objetivo";
 import PrincipalProceso from "@/views/PrincipalProceso";
@@ -77,6 +80,21 @@ const routes = [
     props: true
   },
   {
+    path: "/listar-comportamiento",
+    name: "listar_comportamiento",
+    component: ListarComportamiento
+  },
+  {
+    path: "/crear-comportamiento",
+    name: "crear_comportamiento",
+    component: CrearComportamiento
+  },
+  {
+    path: "/editar-comportamiento",
+    name: "editar_comportamiento",
+    component: EditarComportamiento
+  },
+  {
     path: "/principal-medio",
     name: "principal_medio",
     component: PrincipalMedio
@@ -85,16 +103,6 @@ const routes = [
     path: "/medio",
     name: "medio",
     component: Medio
-  },
-  {
-    path: "/principal-comportamiento",
-    name: "principal_comportamiento",
-    component: PrincipalComportamiento
-  },
-  {
-    path: "/comportamiento",
-    name: "comportamiento",
-    component: Comportamiento
   },
   {
     path: "/principal-objetivo",

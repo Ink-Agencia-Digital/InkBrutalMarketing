@@ -8,7 +8,8 @@ from apps.Persona.api.serializers import (UserDisplaySerializer, EscolaridadSeri
                                           MedioSerializer, PreguntaSerializer, PersonaSerializer,
                                           ComportamientoSerializer, ComportamientoMedioSerializer,
                                           ObjetivoSerializer, EmpresaSerializer, ProyectoSerializer,
-                                          PersonaJoinSerializer, ProyectoJoinSerializer)
+                                          PersonaJoinSerializer, ProyectoJoinSerializer,
+                                          ComportamientoJoinSerializer)
 from apps.Persona.api.permissions import IsAuthorOrReadOnly
 from apps.Persona.models import (Escolaridad, Medio, Pregunta, Persona, Comportamiento,
                                  ComportamientoMedio, Objetivo, Empresa, Proyecto)
@@ -77,7 +78,6 @@ class PersonaFiltroView(generics.ListAPIView):
             return filtro
         else:
             return queryset
-    
 
 class ProyectoViewSet(viewsets.ModelViewSet):
     queryset = Proyecto.objects.all()
@@ -100,6 +100,24 @@ class MedioViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         serializer.save()
 
+class MedioPersonaView(generics.ListAPIView):
+    serializer_class = MedioSerializer
+    permission_classes = [IsAuthenticated, IsAuthorOrReadOnly]
+    
+    def get_queryset(self):
+        pk = (self.kwargs.get("pk"))
+        queryset = Medio.objects.raw('''SELECT 
+                                         TBL_Medios.MDO_Id_Medio, 
+                                         TBL_Medios.MDO_Nombre_Medio, 
+                                         TBL_Medios.MDO_Descripcion_Medio, 
+                                         TBL_Medios.created_at, 
+                                         TBL_Medios.updated_at 
+                                         FROM TBL_Medios 
+                                         inner join TBL_Comportamientos_Medios 
+                                         on TBL_Comportamientos_Medios.CMP_MDO_Medio_Id_id = TBL_Medios.MDO_Id_Medio
+                                         where TBL_Comportamientos_Medios.CMP_MDO_Comportamiento_Id_id = %s''', [pk])
+        return queryset
+
 class ComportamientoViewSet(viewsets.ModelViewSet):
     queryset = Comportamiento.objects.all()
     serializer_class = ComportamientoSerializer
@@ -108,6 +126,11 @@ class ComportamientoViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         serializer.save()
 
+class ComportamientoJoinViewSet(viewsets.ModelViewSet):
+    queryset = Comportamiento.objects.all()
+    serializer_class = ComportamientoJoinSerializer
+    pemission_classes = [IsAuthenticated, IsAuthorOrReadOnly]
+
 class ComportamientoMedioViewSet(viewsets.ModelViewSet):
     queryset = ComportamientoMedio.objects.all()
     serializer_class = ComportamientoMedioSerializer
@@ -115,6 +138,11 @@ class ComportamientoMedioViewSet(viewsets.ModelViewSet):
     
     def perform_create(self, serializer):
         serializer.save()
+
+class ComportamientoUltimoViewSet(viewsets.ModelViewSet):
+    queryset = Comportamiento.objects.raw("SELECT * FROM TBL_Comportamientos ORDER BY CMP_Id_Comportamiento DESC LIMIT 1")
+    serializer_class = ComportamientoSerializer
+    pemission_classes = [IsAuthenticated, IsAuthorOrReadOnly]
 
 class PreguntaViewSet(viewsets.ModelViewSet):
     queryset = Pregunta.objects.all()

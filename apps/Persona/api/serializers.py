@@ -94,6 +94,17 @@ class ComportamientoSerializer(serializers.ModelSerializer):
     def get_created_at(self, instance):
         return instance.created_at.strftime("%B %d, %Y")
 
+class ComportamientoJoinSerializer(serializers.ModelSerializer):
+    created_at = serializers.SerializerMethodField()
+    CMP_Persona_Comportamiento = PersonaSerializer(many = False)
+    
+    class Meta:
+        model = Comportamiento
+        fields = ["CMP_Id_Comportamiento", "CMP_Descripcion_Comportamiento", "CMP_Persona_Comportamiento", "created_at"]
+    
+    def get_created_at(self, instance):
+        return instance.created_at.strftime("%B %d, %Y")
+
 class ComportamientoMedioSerializer(serializers.ModelSerializer):
     
     class Meta:

@@ -1,13 +1,18 @@
 <template>
   <div class="container">
     <div class="col-md-8">
-      <form>
+      <form @submit.prevent="onSubmit">
         <br /><br />
         <h1>Comportamiento</h1>
         <br />
         <div class="form-group">
           <h3>Persona</h3>
-          <select id="persona" class="form-control" required>
+          <select
+            id="persona"
+            class="form-control"
+            v-model="CMP_Persona_Comportamiento"
+            required
+          >
             <option selected value="">--Seleccione una persona--</option>
             <option
               v-for="psn in personas"
@@ -23,7 +28,12 @@
           <h4>Describe sus hábitos y su día a día</h4>
           <br />
           <h5 for="descripcion">Descripción</h5>
-          <textarea class="form-control" aria-label="With textarea"></textarea>
+          <textarea
+            id="descripcion"
+            class="form-control"
+            aria-label="With textarea"
+            v-model="CMP_Descripcion_Comportamiento"
+          ></textarea>
         </div>
         <br /><br />
         <div class="form-group ">
@@ -39,10 +49,14 @@
                     <input
                       type="checkbox"
                       class="custom-control-input"
-                      id="medio1"
+                      :id="'medio' + md.MDO_Id_Medio"
                       :value="md.MDO_Id_Medio"
+                      v-model="CMP_MDO_Medio_Id"
                     />
-                    <label class="custom-control-label" for="medio1">
+                    <label
+                      class="custom-control-label"
+                      :for="'medio' + md.MDO_Id_Medio"
+                    >
                       {{ md.MDO_Nombre_Medio }}
                     </label>
                   </li>
@@ -60,6 +74,7 @@
             />
           </div>
         </div>
+        <p v-if="error" class="muted mt-2" style="color: red;">{{ error }}</p>
         <br />
         <button
           type="submit"
@@ -80,7 +95,11 @@ export default {
   data() {
     return {
       personas: [],
-      medios: []
+      medios: [],
+      valMedio: false,
+      comportamiento: [],
+      idComportamiento: null,
+      error: null
     };
   },
   methods: {
@@ -95,6 +114,54 @@ export default {
       apiService(endpoint).then(data => {
         this.medios.push(...data.results);
       });
+    },
+    onSubmit() {
+      this.medios.forEach(medio => {
+        if (
+          document.getElementById("medio" + medio.MDO_Id_Medio).checked == true
+        ) {
+          this.valMedio = true;
+        }
+      });
+      if (!this.CMP_Persona_Comportamiento) {
+        this.error = "Por favor seleccione una persona";
+      } else if (!this.CMP_Descripcion_Comportamiento) {
+        this.error = "Por favor digite una descripción";
+      } else if (!this.valMedio) {
+        this.error = "Por favor seleccione almenos un medio";
+      } else {
+        this.guardarComportamiento();
+        /*this.obtenerUltimoComportamiento();
+        this.comportamiento.forEach(cmp => {
+          this.medios.forEach(medio => {
+            if (
+              document.getElementById("medio" + medio.MDO_Id_Medio).checked ==
+              true
+            ) {
+              let endpoint = "/api/comportamiento-medio/";
+              let method = "POST";
+              apiService(endpoint, method, {
+                CMP_MDO_Comportamiento_Id: cmp.CMP_Id_Comportamiento,
+                CMP_MDO_Medio_Id: medio.MDO_Id_Medio
+              });
+            }
+          });
+        });*/
+      }
+    },
+    guardarComportamiento() {
+      let endpoint = "/api/comportamiento/";
+      let method = "POST";
+      apiService(endpoint, method, {
+        CMP_Descripcion_Comportamiento: this.CMP_Descripcion_Comportamiento,
+        CMP_Persona_Comportamiento: this.CMP_Persona_Comportamiento
+      }).then(data => {
+        this.comportamiento.push(...data.results);
+      });
+    },
+    obtenerUltimoComportamiento() {
+      let endpoint = "/api/comportamiento-ultimo/";
+      apiService(endpoint);
     }
   },
   created() {
