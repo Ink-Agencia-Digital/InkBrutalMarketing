@@ -100,7 +100,7 @@
             <td>
               <select id="status" class="form-control">
                 <option selected value="">--Seleccione un Status--</option>
-                <option 
+                <option
                   v-for="est in estados"
                   :key="est.EST_Id_Estado"
                   :value="est.EST_Id_Estado"

@@ -140,7 +140,8 @@ class ComportamientoMedioViewSet(viewsets.ModelViewSet):
         serializer.save()
 
 class ComportamientoUltimoViewSet(viewsets.ModelViewSet):
-    queryset = Comportamiento.objects.raw("SELECT * FROM TBL_Comportamientos ORDER BY CMP_Id_Comportamiento DESC LIMIT 1")
+    #queryset = Comportamiento.objects.raw("SELECT * FROM TBL_Comportamientos ORDER BY CMP_Id_Comportamiento DESC LIMIT 1")
+    queryset = Comportamiento.objects.order_by('-created_at')
     serializer_class = ComportamientoSerializer
     pemission_classes = [IsAuthenticated, IsAuthorOrReadOnly]
 

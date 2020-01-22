@@ -88,7 +88,8 @@
                     :key="psn.PSN_Id_Persona"
                     :value="psn.PSN_Id_Persona"
                   >
-                    {{ psn.PSN_Nombres_Persona }} {{ psn.PSN_Apellidos_Persona }}
+                    {{ psn.PSN_Nombres_Persona }}
+                    {{ psn.PSN_Apellidos_Persona }}
                   </option>
                 </select>
               </td>

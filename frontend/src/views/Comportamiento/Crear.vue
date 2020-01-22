@@ -131,22 +131,25 @@ export default {
         this.error = "Por favor seleccione almenos un medio";
       } else {
         this.guardarComportamiento();
-        /*this.obtenerUltimoComportamiento();
-        this.comportamiento.forEach(cmp => {
-          this.medios.forEach(medio => {
-            if (
-              document.getElementById("medio" + medio.MDO_Id_Medio).checked ==
-              true
-            ) {
-              let endpoint = "/api/comportamiento-medio/";
-              let method = "POST";
-              apiService(endpoint, method, {
-                CMP_MDO_Comportamiento_Id: cmp.CMP_Id_Comportamiento,
-                CMP_MDO_Medio_Id: medio.MDO_Id_Medio
-              });
-            }
-          });
-        });*/
+        this.obtenerUltimoComportamiento();
+        this.obtenerUltimoComportamiento();
+        this.medios.forEach(medio => {
+          if (
+            document.getElementById("medio" + medio.MDO_Id_Medio).checked ==
+            true
+          ) {
+            alert(this.comportamiento[0].CMP_Id_Comportamiento);
+            alert(medio.MDO_Id_Medio);
+            let endpoint = "/api/comportamiento-medio/";
+            let method = "POST";
+            apiService(endpoint, method, {
+              CMP_MDO_Comportamiento_Id: this.comportamiento[0]
+                .CMP_Id_Comportamiento,
+              CMP_MDO_Medio_Id: medio.MDO_Id_Medio
+            });
+          }
+        });
+        this.$router.push({ name: "listar_comportamiento" });
       }
     },
     guardarComportamiento() {
@@ -155,13 +158,13 @@ export default {
       apiService(endpoint, method, {
         CMP_Descripcion_Comportamiento: this.CMP_Descripcion_Comportamiento,
         CMP_Persona_Comportamiento: this.CMP_Persona_Comportamiento
-      }).then(data => {
-        this.comportamiento.push(...data.results);
       });
     },
     obtenerUltimoComportamiento() {
       let endpoint = "/api/comportamiento-ultimo/";
-      apiService(endpoint);
+      apiService(endpoint).then(data => {
+        this.comportamiento.push(...data.results);
+      });
     }
   },
   created() {
