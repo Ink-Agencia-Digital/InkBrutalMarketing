@@ -47,7 +47,7 @@
                 <input
                   type="text"
                   class="form-control"
-                  :id="prg.PRG_Id_Pregunta"
+                  :id="'prg' + prg.PRG_Id_Pregunta"
                   placeholder="Respuesta"
                 />
               </td>

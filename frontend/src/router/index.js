@@ -20,8 +20,10 @@ import EditarComportamiento from "@/views/Comportamiento/Editar";
 import PrincipalMedio from "@/views/PrincipalMedio";
 import Medio from "@/views/Medio";
 
-import PrincipalObjetivo from "@/views/PrincipalObjetivo";
-import Objetivo from "@/views/Objetivo";
+import ListarObjetivo from "@/views/Objetivo/Listar";
+import CrearObjetivo from "@/views/Objetivo/Crear";
+import EditarObjetivo from "@/views/Objetivo/Editar";
+
 import PrincipalProceso from "@/views/PrincipalProceso";
 import Proceso from "@/views/Proceso";
 import Lista from "@/views/Lista";
@@ -105,14 +107,19 @@ const routes = [
     component: Medio
   },
   {
-    path: "/principal-objetivo",
-    name: "principal_objetivo",
-    component: PrincipalObjetivo
+    path: "/listar-objetivo",
+    name: "listar_objetivo",
+    component: ListarObjetivo
   },
   {
-    path: "/objetivo",
-    name: "objetivo",
-    component: Objetivo
+    path: "/crear-objetivo",
+    name: "crear_objetivo",
+    component: CrearObjetivo
+  },
+  {
+    path: "/editar-objetivo",
+    name: "editar_objetivo",
+    component: EditarObjetivo
   },
   {
     path: "/principal-proceso",

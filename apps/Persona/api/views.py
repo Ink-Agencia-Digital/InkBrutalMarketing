@@ -160,3 +160,12 @@ class ObjetivoViewSet(viewsets.ModelViewSet):
     
     def perform_create(self, serializer):
         serializer.save()
+
+class ObjetivoPersonaViewSet(generics.ListAPIView):
+    serializer_class = ObjetivoSerializer
+    pemission_classes = [IsAuthenticated, IsAuthorOrReadOnly]
+    
+    def get_queryset(self):
+        id_persona = (self.kwargs.get("idpersona"))
+        queryset = Objetivo.objects.filter(OBJ_Persona_Objetivo = id_persona)
+        return queryset

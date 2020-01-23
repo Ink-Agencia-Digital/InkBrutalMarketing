@@ -23,5 +23,6 @@ urlpatterns = [
     path("usuario/", CurrentUserAPIView.as_view(), name="usuario-actual"),
     path("persona/<int:pk>/filtro/", views.PersonaFiltroView.as_view(), name="filtro-personas"),
     path("persona/<int:pk>/medio/", views.MedioPersonaView.as_view(), name="medios-persona"),
+    path("persona/<int:idpersona>/objetivo/", views.ObjetivoPersonaViewSet.as_view(), name="objetivos-persona"),
     path("", include(router.urls)),
 ]

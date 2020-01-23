@@ -29,7 +29,7 @@
           >
         </li>
         <li class="nav-item">
-          <router-link :to="{ name: 'objetivo' }" class="nav-link">
+          <router-link :to="{ name: 'listar_objetivo' }" class="nav-link">
             Objetivos</router-link
           >
         </li>
