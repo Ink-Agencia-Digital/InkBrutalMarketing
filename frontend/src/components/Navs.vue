@@ -1,13 +1,12 @@
 <template>
-  <nav
-    class="navbar navbar-expand-lg navbar-dark my-navbar"
-    style="background-color: #344675;"
-  >
-    <router-link :to="{ name: 'inicio' }" class="navbar-brand">
-      InkBrutalMarketing</router-link
-    >
-    <div class="collapse navbar-collapse">
-      <ul class="navbar-nav ml-auto">
+  <div class="wrapper" id="navbarSupportedContent">
+    <div class="sidebar-wrapper">
+      <ul class="sidebar-nav">
+        <li class="sidebar-brand">
+          <router-link :to="{ name: 'inicio' }" class="navbar-brand">
+            InkBrutalMarketing</router-link
+          >
+        </li>
         <li class="nav-item active">
           <router-link :to="{ name: 'inicio' }" class="nav-link">
             Inicio</router-link
@@ -21,6 +20,11 @@
         <li class="nav-item">
           <router-link :to="{ name: 'listar_proyecto' }" class="nav-link">
             Proyecto</router-link
+          >
+        </li>
+        <li class="nav-item">
+          <router-link :to="{ name: 'PrincipalMedio' }" class="nav-link">
+            Medio</router-link
           >
         </li>
         <li class="nav-item">
@@ -58,23 +62,30 @@
         </li>
       </ul>
     </div>
-  </nav>
+    <div class="">
+      <header class="header navbar-light bg-faded">
+        <div class="container-fluid">
+          <div class="row text-center">
+            <button
+              type="button"
+              name="button"
+              class="btn hamburguer-btn"
+              id="menu"
+            >
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <span class="page-title">MarketMail</span>
+            <div class="profile-pic"></div>
+          </div>
+        </div>
+      </header>
+    </div>
+  </div>
 </template>
 <script>
 export default {
   name: "NavsComponent"
 };
 </script>
-<style>
-.alt {
-  padding: 1%;
-  padding-left: 30%;
-}
-.alt1 {
-  padding: 1%;
-  padding-left: 2%;
-}
-.my-navbar {
-  border-bottom: 1px solid #ddd;
-}
-</style>
+
+<style></style>

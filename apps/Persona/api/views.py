@@ -9,7 +9,7 @@ from apps.Persona.api.serializers import (UserDisplaySerializer, EscolaridadSeri
                                           ComportamientoSerializer, ComportamientoMedioSerializer,
                                           ObjetivoSerializer, EmpresaSerializer, ProyectoSerializer,
                                           PersonaJoinSerializer, ProyectoJoinSerializer,
-                                          ComportamientoJoinSerializer)
+                                          ComportamientoJoinSerializer, ObjetivoJoinSerializer)
 from apps.Persona.api.permissions import IsAuthorOrReadOnly
 from apps.Persona.models import (Escolaridad, Medio, Pregunta, Persona, Comportamiento,
                                  ComportamientoMedio, Objetivo, Empresa, Proyecto)
@@ -161,8 +161,22 @@ class ObjetivoViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         serializer.save()
 
+class ObjetivoJoinViewSet(viewsets.ModelViewSet):
+    queryset = Objetivo.objects.all()
+    serializer_class = ObjetivoJoinSerializer
+    pemission_classes = [IsAuthenticated, IsAuthorOrReadOnly]
+
+class ObjetivoJoin(generics.ListAPIView):
+    serializer_class = ObjetivoJoinSerializer
+    pemission_classes = [IsAuthenticated, IsAuthorOrReadOnly]
+    
+    def get_queryset(self):
+        pk = (self.kwargs.get("pk"))
+        queryset = Objetivo.objects.filter(OBJ_Id_Objetivo = pk)
+        return queryset
+
 class ObjetivoPersonaViewSet(generics.ListAPIView):
-    serializer_class = ObjetivoSerializer
+    serializer_class = ObjetivoJoinSerializer
     pemission_classes = [IsAuthenticated, IsAuthorOrReadOnly]
     
     def get_queryset(self):

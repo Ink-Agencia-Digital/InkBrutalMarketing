@@ -38,15 +38,33 @@
             <th scope="row">
               {{ obj.OBJ_Id_Objetivo }}
             </th>
-            <td><label class="" for="persona">Persona</label></td>
-            <td><label class="" for="descripcion">Pregunta</label></td>
+            <td>
+              <label class="" for="persona">
+                {{
+                  obj.OBJ_Persona_Objetivo.PSN_Nombres_Persona +
+                    " " +
+                    obj.OBJ_Persona_Objetivo.PSN_Apellidos_Persona
+                }}
+              </label>
+            </td>
+            <td>
+              <label class="" for="descripcion">
+                {{ obj.OBJ_Pregunta_Objetivo.PRG_Nombre_Pregunta }}
+              </label>
+            </td>
             <td>
               <label class="" for="medios">
                 {{ obj.OBJ_Respuesta_Objetivo }}
               </label>
             </td>
             <td>
-              <router-link :to="{ name: 'objetivo' }" class="bp btn-primary">
+              <router-link
+                :to="{
+                  name: 'editar_objetivo',
+                  params: { id: obj.OBJ_Id_Objetivo }
+                }"
+                class="bp btn-primary"
+              >
                 Modificar
               </router-link>
               <button type="button" class="bpn btn-danger">Eliminar</button>
@@ -82,13 +100,13 @@ export default {
     },
     getObjetivos(accion = null) {
       if (accion == null || accion == "") {
-        let endpoint = "/api/objetivo/";
+        let endpoint = "/api/objetivo-join/";
         this.objetivos = [];
         apiService(endpoint).then(data => {
           this.objetivos.push(...data.results);
         });
       } else if (accion == "DELETE") {
-        let endpoint = "/api/objetivo/";
+        let endpoint = "/api/objetivo-join/";
         this.objetivos = [];
         if (this.nextObjetivo) {
           endpoint = this.nextObjetivo;

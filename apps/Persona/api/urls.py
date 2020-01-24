@@ -18,11 +18,13 @@ router.register(r"medio", views.MedioViewSet)
 router.register(r"comportamiento-medio", views.ComportamientoMedioViewSet)
 router.register(r"pregunta", views.PreguntaViewSet)
 router.register(r"objetivo", views.ObjetivoViewSet)
+router.register(r"objetivo-join", views.ObjetivoJoinViewSet)
 
 urlpatterns = [
     path("usuario/", CurrentUserAPIView.as_view(), name="usuario-actual"),
     path("persona/<int:pk>/filtro/", views.PersonaFiltroView.as_view(), name="filtro-personas"),
     path("persona/<int:pk>/medio/", views.MedioPersonaView.as_view(), name="medios-persona"),
     path("persona/<int:idpersona>/objetivo/", views.ObjetivoPersonaViewSet.as_view(), name="objetivos-persona"),
+    path("objetivo-join/<int:pk>/", views.ObjetivoJoin.as_view(), name="objetivo"),
     path("", include(router.urls)),
 ]

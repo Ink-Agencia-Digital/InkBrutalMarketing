@@ -117,7 +117,7 @@ const routes = [
     component: CrearObjetivo
   },
   {
-    path: "/editar-objetivo",
+    path: "/editar-objetivo/:id",
     name: "editar_objetivo",
     component: EditarObjetivo
   },

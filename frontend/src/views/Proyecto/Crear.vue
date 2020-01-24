@@ -25,13 +25,14 @@
               id="empresa"
               class="form-control"
               v-model="PRY_Empresa_Proyecto_id"
-              @change="onChange($event)"
             >
-              <option selected value="">--Seleccione una Empresa--</option>
+              <option disabled value="">
+                --Seleccione una Empresa--
+              </option>
               <option
                 v-for="emp in empresas"
+                v-bind:value="emp.EMP_Id_Empresa"
                 :key="emp.EMP_Id_Empresa"
-                :value="emp.EMP_Id_Empresa"
               >
                 {{ emp.EMP_Nombre_Empresa }}
               </option>
@@ -46,7 +47,9 @@
               class="form-control"
               v-model="PRY_Persona_Proyecto_id"
             >
-              <option selected value="">--Seleccione una Persona--</option>
+              <option selected disabled value="">
+                --Seleccione una Persona--
+              </option>
               <option
                 v-for="psn in personas"
                 :key="psn.PSN_Id_Persona"
@@ -78,7 +81,9 @@ export default {
     return {
       empresas: [],
       personas: [],
-      error: null
+      error: null,
+      PRY_Empresa_Proyecto_id: "",
+      PRY_Persona_Proyecto_id: ""
     };
   },
   methods: {
@@ -92,23 +97,12 @@ export default {
         this.empresas.push(...data.results);
       });
     },
-    getPersonas(pk = null) {
-      if (pk == null || pk == "") {
-        let endpoint = "/api/persona/";
-        this.personas = [];
-        apiService(endpoint).then(data => {
-          this.personas.push(...data.results);
-        });
-      } else {
-        let endpoint = `/api/persona/${pk}/filtro/`;
-        this.personas = [];
-        apiService(endpoint).then(data => {
-          this.personas.push(...data.results);
-        });
-      }
-    },
-    onChange(event) {
-      this.getPersonas(event.target.value);
+    getPersonas() {
+      let endpoint = "/api/persona/";
+      this.personas = [];
+      apiService(endpoint).then(data => {
+        this.personas.push(...data.results);
+      });
     },
     onSubmit() {
       if (!this.PRY_Nombre_Proyecto) {

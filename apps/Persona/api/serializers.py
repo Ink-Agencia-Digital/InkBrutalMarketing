@@ -130,3 +130,15 @@ class ObjetivoSerializer(serializers.ModelSerializer):
     
     def get_created_at(self, instance):
         return instance.created_at.strftime("%B %d, %Y")
+
+class ObjetivoJoinSerializer(serializers.ModelSerializer):
+    created_at = serializers.SerializerMethodField()
+    OBJ_Persona_Objetivo = PersonaSerializer(many = False)
+    OBJ_Pregunta_Objetivo = PreguntaSerializer(many = False)
+    
+    class Meta:
+        model = Objetivo
+        fields = ["OBJ_Id_Objetivo", "OBJ_Persona_Objetivo", "OBJ_Pregunta_Objetivo", "OBJ_Respuesta_Objetivo", "created_at"]
+    
+    def get_created_at(self, instance):
+        return instance.created_at.strftime("%B %d, %Y")

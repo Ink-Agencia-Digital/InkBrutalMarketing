@@ -1,13 +1,18 @@
 <template>
   <div class="container">
     <div class="col-md-8">
-      <form>
+      <form @submit.prevent="onSubmit">
         <br /><br />
         <h1>Objetivos y desafíos</h1>
         <br />
         <div class="form-group">
           <h3>Persona</h3>
-          <select id="persona" class="form-control" required>
+          <select
+            id="persona"
+            class="form-control"
+            required
+            v-model="OBJ_Persona_Objetivo"
+          >
             <option selected value="">--Seleccione una persona--</option>
             <option
               v-for="psn in personas"
@@ -54,6 +59,7 @@
             </tr>
           </tbody>
         </table>
+        <p v-if="error" class="muted mt-2" style="color: red;">{{ error }}</p>
         <br />
         <button
           type="submit"
@@ -73,7 +79,8 @@ export default {
   data() {
     return {
       personas: [],
-      preguntas: []
+      preguntas: [],
+      error: null
     };
   },
   methods: {
@@ -88,6 +95,29 @@ export default {
       apiService(endpoint).then(data => {
         this.preguntas.push(...data.results);
       });
+    },
+    onSubmit() {
+      if (!this.OBJ_Persona_Objetivo) {
+        this.error = "Por favor seleccione una persona";
+      }
+      this.preguntas.forEach(prg => {
+        var miCampoTexto = document.getElementById("prg" + prg.PRG_Id_Pregunta)
+          .value;
+        if (miCampoTexto.length == 0) {
+          this.error =
+            "Por favor digite la respuesta de la pregunta " +
+            prg.PRG_Id_Pregunta;
+        } else {
+          let endpoint = "/api/objetivo/";
+          let method = "POST";
+          apiService(endpoint, method, {
+            OBJ_Persona_Objetivo: this.OBJ_Persona_Objetivo,
+            OBJ_Pregunta_Objetivo: prg.PRG_Id_Pregunta,
+            OBJ_Respuesta_Objetivo: miCampoTexto
+          });
+        }
+      });
+      this.$router.push({ name: "listar_objetivo" });
     }
   },
   created() {
