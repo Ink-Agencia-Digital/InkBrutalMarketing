@@ -1,0 +1,111 @@
+<template>
+  <div class="container">
+    <div class="col-md-8">
+      <form @submit.prevent="onSubmit">
+        <br /><br />
+        <h1>Medio</h1>
+        <br />
+        <div class="form-group">
+          <h5 for="medio">Nombre del Medio</h5>
+          <input
+            type="text"
+            class="form-control"
+            id="medio"
+            v-model="MDO_Nombre_Medio"
+          />
+        </div>
+        <br />
+        <div class="form-group ">
+          <h5 for="descripcion">Descripción</h5>
+          <textarea
+            class="form-control"
+            aria-label="With textarea"
+            v-model="MDO_Descripcion_Medio"
+          ></textarea>
+        </div>
+        <p v-if="error" class="muted mt-2" style="color: red;">{{ error }}</p>
+        <br /><br />
+        <button
+          type="submit"
+          class="btn btn-dark"
+          style="background-color: #344675;"
+        >
+          Guardar
+        </button>
+        <br /><br /><br />
+      </form>
+    </div>
+  </div>
+</template>
+
+<script>
+import { apiService } from "@/common/api.service.js";
+export default {
+  props: {
+    id: {
+      type: Number,
+      required: true
+    },
+    nombreAnterior: {
+      type: String,
+      required: true
+    },
+    descripcionAnterior: {
+      type: String,
+      required: true
+    }
+  },
+  data() {
+    return {
+      MDO_Nombre_Medio: this.nombreAnterior,
+      MDO_Descripcion_Medio: this.descripcionAnterior,
+      error: null
+    };
+  },
+  methods: {
+    onSubmit() {
+      if (!this.MDO_Nombre_Medio) {
+        this.error = "Por favor digite un nombre de medio";
+      } else if (!this.MDO_Descripcion_Medio) {
+        this.error = "Por favor digite una descripción del medio";
+      } else if (this.MDO_Nombre_Medio.length > 150) {
+        this.error =
+          "El nombre del medio no puede ser superior a 150 caracteres";
+      } else if (this.MDO_Descripcion_Medio.length > 1000) {
+        this.error =
+          "La descripción del medio no puede ser superior a 1000 caracteres";
+      } else {
+        let endpoint = `/api/medio/${this.id}/`;
+        let method = "PUT";
+        apiService(endpoint, method, {
+          MDO_Nombre_Medio: this.MDO_Nombre_Medio,
+          MDO_Descripcion_Medio: this.MDO_Descripcion_Medio
+        }).then(() => {
+          this.$router.push({
+            name: "listar_medio"
+          });
+        });
+      }
+    }
+  },
+  async beforeRouteEnter(to, from, next) {
+    let endpoint = `/api/medio/${to.params.id}/`;
+    let data = await apiService(endpoint);
+    to.params.nombreAnterior = data.MDO_Nombre_Medio;
+    to.params.descripcionAnterior = data.MDO_Descripcion_Medio;
+    return next();
+  }
+};
+</script>
+
+<style>
+.background {
+  position: absolute;
+  z-index: 1;
+  width: 98%;
+  height: 169%;
+  padding-top: 0%;
+  padding-left: 0%;
+  padding-right: 0%;
+}
+</style>

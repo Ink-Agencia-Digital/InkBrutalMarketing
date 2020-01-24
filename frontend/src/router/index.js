@@ -13,12 +13,13 @@ import ListarProyecto from "@/views/Proyecto/Listar";
 import CrearProyecto from "@/views/Proyecto/Crear";
 import EditarProyecto from "@/views/Proyecto/Editar";
 
+import ListarMedio from "@/views/Medio/Listar";
+import CrearMedio from "@/views/Medio/Crear";
+import EditarMedio from "@/views/Medio/Editar";
+
 import ListarComportamiento from "@/views/Comportamiento/Listar";
 import CrearComportamiento from "@/views/Comportamiento/Crear";
 import EditarComportamiento from "@/views/Comportamiento/Editar";
-
-import PrincipalMedio from "@/views/PrincipalMedio";
-import Medio from "@/views/Medio";
 
 import ListarObjetivo from "@/views/Objetivo/Listar";
 import CrearObjetivo from "@/views/Objetivo/Crear";
@@ -82,6 +83,22 @@ const routes = [
     props: true
   },
   {
+    path: "/listar-medio",
+    name: "listar_medio",
+    component: ListarMedio
+  },
+  {
+    path: "/crear-medio",
+    name: "crear_medio",
+    component: CrearMedio
+  },
+  {
+    path: "/editar-medio/:id",
+    name: "editar_medio",
+    component: EditarMedio,
+    props: true
+  },
+  {
     path: "/listar-comportamiento",
     name: "listar_comportamiento",
     component: ListarComportamiento
@@ -95,16 +112,6 @@ const routes = [
     path: "/editar-comportamiento",
     name: "editar_comportamiento",
     component: EditarComportamiento
-  },
-  {
-    path: "/principal-medio",
-    name: "principal_medio",
-    component: PrincipalMedio
-  },
-  {
-    path: "/medio",
-    name: "medio",
-    component: Medio
   },
   {
     path: "/listar-objetivo",
