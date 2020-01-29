@@ -16,7 +16,7 @@ class EmpresaSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Empresa
-        fields = ["EMP_Id_Empresa", "EMP_Nombre_Empresa", "created_at"]
+        fields = ["EMP_Id_Empresa", "EMP_Nombre_Empresa", "EMP_NIT_Empresa", "EMP_Telefono_Empresa", "EMP_Direccion_Empresa", "EMP_Correo_Empresa", "EMP_Tamano_Empresa", "created_at"]
     
     def get_created_at(self, instance):
         return instance.created_at.strftime("%B %d, %Y")

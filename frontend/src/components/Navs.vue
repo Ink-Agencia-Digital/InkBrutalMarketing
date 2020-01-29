@@ -1,66 +1,74 @@
 <template>
   <div class="wrapper" id="navbarSupportedContent">
     <div class="sidebar-wrapper">
-      <ul class="sidebar-nav">
-        <li class="sidebar-brand">
-          <router-link :to="{ name: 'inicio' }" class="navbar-brand">
-            InkBrutalMarketing</router-link
-          >
-        </li>
-        <li class="nav-item active">
-          <router-link :to="{ name: 'inicio' }" class="nav-link">
-            Inicio</router-link
-          >
-        </li>
-        <li class="nav-item">
-          <router-link :to="{ name: 'listar_empresa' }" class="nav-link">
-            Persona</router-link
-          >
-        </li>
-        <li class="nav-item">
-          <router-link :to="{ name: 'listar_proyecto' }" class="nav-link">
-            Proyecto</router-link
-          >
-        </li>
-        <li class="nav-item">
-          <router-link :to="{ name: 'listar_medio' }" class="nav-link">
-            Medio</router-link
-          >
-        </li>
-        <li class="nav-item">
-          <router-link :to="{ name: 'listar_comportamiento' }" class="nav-link">
-            Comportamientos</router-link
-          >
-        </li>
-        <li class="nav-item">
-          <router-link :to="{ name: 'listar_objetivo' }" class="nav-link">
-            Objetivos</router-link
-          >
-        </li>
-        <li class="nav-item">
-          <router-link :to="{ name: 'proceso' }" class="nav-link">
-            Proceso</router-link
-          >
-        </li>
-        <li class="nav-item">
-          <router-link :to="{ name: 'lista' }" class="nav-link">
-            Lista de contenido</router-link
-          >
-        </li>
-        <li class="nav-item">
-          <router-link :to="{ name: 'planificacion' }" class="nav-link">
-            Planificación</router-link
-          >
-        </li>
-        <li class="nav-item">
-          <router-link :to="{ name: 'calendario' }" class="nav-link">
-            Calendario</router-link
-          >
-        </li>
-        <li class="nav-item">
-          <a href="/accounts/logout/" class="nav-link">Salir</a>
-        </li>
-      </ul>
+      <div class="user-info">
+        <div class="image">
+          <img src="@/assets/logo.png" alt="Perfil" width="48" height="48">
+        </div>
+      </div>
+      <div class="menu">
+        <div
+          class="slimScrollDiv"
+          style="position: relative; width: auto; height: 163px;"
+        >
+          <ul class="sidebar-nav list">
+            <li class="header">Menu de navegación</li>
+            <li>
+              <router-link :to="{ name: 'inicio' }" class="waves-effect waves-block">
+                Inicio</router-link
+              >
+            </li>
+            <li>
+              <router-link :to="{ name: 'listar_persona' }" class="waves-effect waves-block">
+                Persona</router-link
+              >
+            </li>
+            <li>
+              <router-link :to="{ name: 'listar_proyecto' }" class="waves-effect waves-block">
+                Proyecto</router-link
+              >
+            </li>
+            <li>
+              <router-link :to="{ name: 'listar_medio' }" class="waves-effect waves-block">
+                Medio</router-link
+              >
+            </li>
+            <li>
+              <router-link :to="{ name: 'listar_comportamiento' }" class="waves-effect waves-block">
+                Comportamientos</router-link
+              >
+            </li>
+            <li>
+              <router-link :to="{ name: 'listar_objetivo' }" class="waves-effect waves-block">
+                Objetivos</router-link
+              >
+            </li>
+            <li>
+              <router-link :to="{ name: 'proceso' }" class="waves-effect waves-block">
+                Proceso</router-link
+              >
+            </li>
+            <li>
+              <router-link :to="{ name: 'lista' }" class="waves-effect waves-block">
+                Lista de contenido</router-link
+              >
+            </li>
+            <li>
+              <router-link :to="{ name: 'planificacion' }" class="waves-effect waves-block">
+                Planificación</router-link
+              >
+            </li>
+            <li>
+              <router-link :to="{ name: 'calendario' }" class="waves-effect waves-block">
+                Calendario</router-link
+              >
+            </li>
+            <li>
+              <a href="/accounts/logout/" class="waves-effect waves-block">Salir</a>
+            </li>
+          </ul>
+        </div>
+      </div>
     </div>
     <div class="">
       <header class="header navbar-light bg-faded">

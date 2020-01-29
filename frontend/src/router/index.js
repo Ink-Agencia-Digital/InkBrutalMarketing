@@ -6,6 +6,7 @@ import ListarEmpresa from "@/views/Empresa/Listar";
 import CrearEmpresa from "@/views/Empresa/Crear";
 import EditarEmpresa from "@/views/Empresa/Editar";
 
+import ListarPersona from "@/views/Persona/Listar";
 import CrearPersona from "@/views/Persona/Crear";
 import EditarPersona from "@/views/Persona/Editar";
 
@@ -54,6 +55,11 @@ const routes = [
     name: "editar_empresa",
     component: EditarEmpresa,
     props: true
+  },
+  {
+    path: "/listar-persona",
+    name: "listar_persona",
+    component: ListarPersona
   },
   {
     path: "/crear-persona",

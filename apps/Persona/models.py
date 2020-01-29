@@ -6,6 +6,11 @@ from django.db import models
 class Empresa(models.Model):
     EMP_Id_Empresa = models.BigAutoField(primary_key = True)
     EMP_Nombre_Empresa = models.CharField(max_length = 100)
+    EMP_NIT_Empresa = models.CharField(max_length = 30)
+    EMP_Telefono_Empresa = models.CharField(max_length = 30)
+    EMP_Direccion_Empresa = models.CharField(max_length = 100)
+    EMP_Correo_Empresa = models.CharField(max_length = 100)
+    EMP_Tamano_Empresa = models.CharField(max_length = 15)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     

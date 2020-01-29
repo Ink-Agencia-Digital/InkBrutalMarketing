@@ -104,7 +104,7 @@ display: block;
 
 @media(min-width:768px) {
     .wrapper {
-        padding-left: 250px;
+        padding-left: 0px;
     }
 
     .wrapper.toggled {

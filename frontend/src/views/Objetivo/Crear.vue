@@ -13,7 +13,9 @@
             required
             v-model="OBJ_Persona_Objetivo"
           >
-            <option selected value="">--Seleccione una persona--</option>
+            <option selected disabled value="">
+              --Seleccione una persona--
+            </option>
             <option
               v-for="psn in personas"
               :key="psn.PSN_Id_Persona"
@@ -78,6 +80,7 @@ import { apiService } from "@/common/api.service.js";
 export default {
   data() {
     return {
+      OBJ_Persona_Objetivo: "",
       personas: [],
       preguntas: [],
       error: null

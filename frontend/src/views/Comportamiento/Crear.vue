@@ -64,15 +64,6 @@
               </div>
             </div>
           </div>
-          <div class="form-group">
-            <label for="otro">Otros</label>
-            <input
-              type="text"
-              class="form-control"
-              id="otro"
-              placeholder="¿Cúal otro medio?"
-            />
-          </div>
         </div>
         <p v-if="error" class="muted mt-2" style="color: red;">{{ error }}</p>
         <br />
@@ -94,6 +85,7 @@ import { apiService } from "@/common/api.service.js";
 export default {
   data() {
     return {
+      CMP_Persona_Comportamiento: "",
       personas: [],
       medios: [],
       valMedio: false,

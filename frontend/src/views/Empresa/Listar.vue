@@ -1,13 +1,16 @@
 <template>
   <div class="container">
-    <div class="col-md-8">
-      <br /><br />
-      <h1>Empresa</h1>
-      <br />
-      <router-link :to="{ name: 'crear_empresa' }" class="b btn-info">
-        Crear
-      </router-link>
-      <br /><br /><br />
+    <div class="col-md-12 card">
+      <div class="header">
+        <h2>Empresa</h2>
+        <ul class="header-dropdown" style="top:10px;">
+          <li class="dropdown">
+            <router-link :to="{ name: 'crear_empresa' }" class="btn btn-info">
+              Crear
+            </router-link>
+          </li>
+        </ul>
+      </div>
       <p v-if="error" class="muted mt-2" style="color: red;">{{ error }}</p>
       <table class="table" id="tabla-data">
         <thead class="thead-dark">
@@ -19,7 +22,16 @@
               Empresa
             </th>
             <th scope="col">
-              Nombre del proyecto
+              NIT
+            </th>
+            <th scope="col">
+              Dirección
+            </th>
+            <th scope="col">
+              Telefono
+            </th>
+            <th scope="col">
+              Correo
             </th>
             <th scope="col">
               Acción
@@ -37,7 +49,24 @@
               </label>
             </td>
             <td>
-              <label class="" for="proyecto">Proyecto</label>
+              <label class="" for="empresa">
+                {{ emp.EMP_NIT_Empresa }}
+              </label>
+            </td>
+            <td>
+              <label class="" for="empresa">
+                {{ emp.EMP_Direccion_Empresa }}
+              </label>
+            </td>
+            <td>
+              <label class="" for="empresa">
+                {{ emp.EMP_Telefono_Empresa }}
+              </label>
+            </td>
+            <td>
+              <label class="" for="empresa">
+                {{ emp.EMP_Correo_Empresa }}
+              </label>
             </td>
             <td>
               <router-link
@@ -70,84 +99,6 @@
           Cargar Más
         </button>
       </div>
-      <br />
-      <h1>Persona</h1>
-      <br />
-      <router-link :to="{ name: 'crear_persona' }" class="b btn-info">
-        Crear
-      </router-link>
-      <br /><br /><br />
-      <table class="table">
-        <thead class="thead-dark">
-          <tr>
-            <th scope="col">
-              #
-            </th>
-            <th scope="col">
-              Nombre
-            </th>
-            <th scope="col">
-              Apellido
-            </th>
-            <th scope="col">
-              Escolaridad
-            </th>
-            <th scope="col">
-              Acción
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="psn in personas" :key="psn.PSN_Id_Persona">
-            <th scope="row">
-              {{ psn.PSN_Id_Persona }}
-            </th>
-            <td>
-              <label class="" for="nombre">
-                {{ psn.PSN_Nombres_Persona }}
-              </label>
-            </td>
-            <td>
-              <label class="" for="apellido">
-                {{ psn.PSN_Apellidos_Persona }}
-              </label>
-            </td>
-            <td>
-              <label class="" for="escolaridad">
-                {{ psn.PSN_Escoladidad_Persona.ESC_Nombre_Escolaridad }}
-              </label>
-            </td>
-            <td>
-              <router-link
-                :to="{
-                  name: 'editar_persona',
-                  params: { id: psn.PSN_Id_Persona }
-                }"
-                class="bp btn-primary"
-              >
-                Modificar
-              </router-link>
-              <button
-                type="button"
-                class="bpn btn-danger"
-                @click="deletePersona(psn.PSN_Id_Persona)"
-              >
-                Eliminar
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <div class="my-4">
-        <p v-show="loadingPersonas">...Cargando...</p>
-        <button
-          v-show="nextPersona"
-          @click="getPersonas('MAS')"
-          class="btn btn-sm btn-outline-success"
-        >
-          Cargar Más
-        </button>
-      </div>
     </div>
   </div>
 </template>
@@ -159,10 +110,7 @@ export default {
     return {
       empresas: [],
       nextEmpresa: null,
-      loadingEmpresas: false,
-      personas: [],
-      loadingPersonas: false,
-      nextPersona: null
+      loadingEmpresas: false
     };
   },
   methods: {
@@ -197,50 +145,17 @@ export default {
       } catch (err) {
         this.error = "No es posible eliminar el registro";
       }
-    },
-    getPersonas(accion = null) {
-      let endpoint = "/api/persona-join/";
-      if (accion == "DELETE") {
-        this.personas = [];
-        apiService(endpoint).then(data => {
-          this.personas.push(...data.results);
-        });
-      } else {
-        if (this.nextPersona) {
-          endpoint = this.nextPersona;
-        }
-        this.loadingPersonas = true;
-        apiService(endpoint).then(data => {
-          this.personas.push(...data.results);
-          this.loadingPersonas = false;
-          if (data.next) {
-            this.nextPersona = data.next;
-          } else {
-            this.nextPersona = null;
-          }
-        });
-      }
-    },
-    async deletePersona(persona) {
-      let endpoint = `/api/persona/${persona}/`;
-      try {
-        await apiService(endpoint, "DELETE");
-        this.getPersonas("DELETE");
-      } catch (err) {
-        this.error = "No es posible eliminar el registro";
-      }
     }
   },
   created() {
     this.getEmpresas();
-    this.getPersonas();
   }
 };
 </script>
 
 <style>
 .b {
-  padding: 2% 3%;
+  padding: 6px 12px;
   text-align: center;
   font-size: 16px;
   border-radius: 8px;

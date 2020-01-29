@@ -14,7 +14,9 @@
         v-model="idPersona"
         @change="onChange($event)"
       >
-        <option selected value="">--Seleccione una Persona--</option>
+        <option selected disabled value="">
+          --Seleccione una Persona--
+        </option>
         <option
           v-for="psn in personas"
           :key="psn.PSN_Id_Persona"
@@ -85,7 +87,8 @@ export default {
       personas: [],
       objetivos: [],
       nextObjetivo: null,
-      loadingObjetivos: false
+      loadingObjetivos: false,
+      idPersona: ""
     };
   },
   methods: {

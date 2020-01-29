@@ -44,7 +44,9 @@
           <div class="form-group col-md-6">
             <label for="sexo">Sexo</label>
             <select id="sexo" class="form-control" v-model="PSN_Sexo_Persona">
-              <option selected value="">--Selecciona un Sexo--</option>
+              <option disabled value="">
+                --Selecciona un Sexo--
+              </option>
               <option value="Femenino">Femenino</option>
               <option value="Masculino">Masculino</option>
             </select>
@@ -58,7 +60,9 @@
               class="form-control"
               v-model="PSN_Escoladidad_Persona"
             >
-              <option value="">--Seleccione una escolaridad--</option>
+              <option value="" disabled>
+                --Seleccione una escolaridad--
+              </option>
               <option
                 v-for="esc in escolaridades"
                 :key="esc.ESC_Id_Escolaridad"
@@ -100,6 +104,8 @@ export default {
   data() {
     return {
       escolaridades: [],
+      PSN_Sexo_Persona: "",
+      PSN_Escoladidad_Persona: "",
       error: null
     };
   },

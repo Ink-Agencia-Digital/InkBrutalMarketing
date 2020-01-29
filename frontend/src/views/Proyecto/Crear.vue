@@ -93,9 +93,6 @@ export default {
       apiService(endpoint).then(data => {
         this.empresas.push(...data.results);
       });
-      apiService(endpoint).then(data => {
-        this.empresas.push(...data.results);
-      });
     },
     getPersonas() {
       let endpoint = "/api/persona/";
