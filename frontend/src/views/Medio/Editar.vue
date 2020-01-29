@@ -1,41 +1,61 @@
 <template>
-  <div class="container">
-    <div class="col-md-8">
-      <form @submit.prevent="onSubmit">
-        <br /><br />
-        <h1>Medio</h1>
-        <br />
-        <div class="form-group">
-          <h5 for="medio">Nombre del Medio</h5>
-          <input
-            type="text"
-            class="form-control"
-            id="medio"
-            v-model="MDO_Nombre_Medio"
-          />
+  <section class="content">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <div class="card">
+        <div class="header">
+          <h2>Editar Medio</h2>
+          <ul class="header-dropdown" style="top:10px;">
+            <li class="dropdown">
+              <router-link
+                :to="{ name: 'listar_medio' }"
+                class="btn btn-danger"
+              >
+                <i class="material-icons" style="font-size: 20px;">
+                  keyboard_backspace
+                </i>
+                Volver
+              </router-link>
+            </li>
+          </ul>
         </div>
-        <br />
-        <div class="form-group ">
-          <h5 for="descripcion">Descripción</h5>
-          <textarea
-            class="form-control"
-            aria-label="With textarea"
-            v-model="MDO_Descripcion_Medio"
-          ></textarea>
+        <div class="body">
+          <form @submit.prevent="onSubmit">
+            <div class="form-group">
+              <h5 for="medio">Nombre del Medio</h5>
+              <input
+                type="text"
+                class="form-control"
+                id="medio"
+                v-model="MDO_Nombre_Medio"
+              />
+            </div>
+            <div class="form-group ">
+              <h5 for="descripcion">Descripción</h5>
+              <textarea
+                class="form-control"
+                aria-label="With textarea"
+                v-model="MDO_Descripcion_Medio"
+              ></textarea>
+            </div>
+            <p v-if="error" class="muted mt-2" style="color: red;">
+              {{ error }}
+            </p>
+            <router-link :to="{ name: 'listar_medio' }" class="btn btn-danger">
+              Cancelar
+            </router-link>
+            &nbsp;
+            <button
+              type="submit"
+              class="btn btn-dark"
+              style="background-color: #344675;"
+            >
+              Guardar
+            </button>
+          </form>
         </div>
-        <p v-if="error" class="muted mt-2" style="color: red;">{{ error }}</p>
-        <br /><br />
-        <button
-          type="submit"
-          class="btn btn-dark"
-          style="background-color: #344675;"
-        >
-          Guardar
-        </button>
-        <br /><br /><br />
-      </form>
+      </div>
     </div>
-  </div>
+  </section>
 </template>
 
 <script>

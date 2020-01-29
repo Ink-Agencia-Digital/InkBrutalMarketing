@@ -1,58 +1,89 @@
 <template>
-  <div class="container">
-    <div class="col-md-8">
-      <br /><br />
-      <h1>Medio</h1>
-      <br />
-      <router-link :to="{ name: 'crear_medio' }" class="b btn-info">
-        Crear
-      </router-link>
-      <br /><br /><br />
-      <table class="table">
-        <thead class="thead-dark">
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Nombre del Medio</th>
-            <th scope="col">Descripcion</th>
-            <th scope="col">Acción</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="mdo in medios" :key="mdo.MDO_Id_Medio">
-            <th scope="row">
-              {{ mdo.MDO_Id_Medio }}
-            </th>
-            <td>
-              <label class="">
-                {{ mdo.MDO_Nombre_Medio }}
-              </label>
-            </td>
-            <td>
-              <label class="">
-                {{ mdo.MDO_Descripcion_Medio }}
-              </label>
-            </td>
-            <td>
-              <router-link
-                :to="{ name: 'editar_medio', params: { id: mdo.MDO_Id_Medio } }"
-                class="bp btn-primary"
-              >
-                Modificar
+  <section class="content">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <div class="card">
+        <div class="header">
+          <h2>Medios</h2>
+          <ul class="header-dropdown" style="top:10px;">
+            <li class="dropdown">
+              <router-link :to="{ name: 'crear_medio' }" class="btn btn-info">
+                <i class="material-icons" style="color:white;">add</i>Crear
               </router-link>
-              <button
-                type="button"
-                class="bpn btn-danger"
-                @click="deleteMedio(mdo.MDO_Id_Medio)"
-              >
-                Eliminar
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <br />
+            </li>
+          </ul>
+        </div>
+        <div class=" body table-responsive">
+          <p v-if="error" class="muted mt-2" style="color: red;">{{ error }}</p>
+          <table class="table">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nombre del Medio</th>
+                <th scope="col">Descripcion</th>
+                <th scope="col">Acción</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="(mdo, index) in medios" :key="mdo.MDO_Id_Medio">
+                <th scope="row">
+                  {{ ++index }}
+                </th>
+                <td>
+                  <label class="">
+                    {{ mdo.MDO_Nombre_Medio }}
+                  </label>
+                </td>
+                <td>
+                  <label class="">
+                    {{ mdo.MDO_Descripcion_Medio }}
+                  </label>
+                </td>
+                <td>
+                  <router-link
+                    :to="{
+                      name: 'editar_medio',
+                      params: { id: mdo.MDO_Id_Medio }
+                    }"
+                    title="Editar este Registro"
+                  >
+                    <i
+                      class="material-icons text-info"
+                      style="font-size: 20px;"
+                    >
+                      edit
+                    </i>
+                  </router-link>
+                  <button
+                    type="button"
+                    class="btn-accion-tabla"
+                    title="Eliminar este Registro"
+                    @click="deleteMedio(mdo.MDO_Id_Medio)"
+                  >
+                    <i
+                      class="material-icons text-danger"
+                      style="font-size: 20px;"
+                    >
+                      delete
+                    </i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="my-4">
+            <p v-show="loadingMedios">...Cargando...</p>
+            <button
+              v-show="nextMedio"
+              @click="getMedios('MAS')"
+              class="btn btn-sm btn-outline-success"
+            >
+              Cargar Más
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
+  </section>
 </template>
 
 <script>

@@ -26,10 +26,14 @@ import ListarObjetivo from "@/views/Objetivo/Listar";
 import CrearObjetivo from "@/views/Objetivo/Crear";
 import EditarObjetivo from "@/views/Objetivo/Editar";
 
-import PrincipalProceso from "@/views/PrincipalProceso";
-import Proceso from "@/views/Proceso";
-import Lista from "@/views/Lista";
-import Planificacion from "@/views/Planificacion";
+import ListarProceso from "@/views/Proceso/Listar";
+import CrearProceso from "@/views/Proceso/Crear";
+import EditarProceso from "@/views/Proceso/Editar";
+
+import ListaContenido from "@/views/Contenido/Lista";
+
+import PlanificacionEmail from "@/views/Planificacion/Planificacion";
+
 import Calendario from "@/views/Calendario";
 
 Vue.use(VueRouter);
@@ -132,27 +136,34 @@ const routes = [
   {
     path: "/editar-objetivo/:id",
     name: "editar_objetivo",
-    component: EditarObjetivo
+    component: EditarObjetivo,
+    props: true
   },
   {
-    path: "/principal-proceso",
-    name: "principal_proceso",
-    component: PrincipalProceso
+    path: "/listar-proceso",
+    name: "listar_proceso",
+    component: ListarProceso
   },
   {
-    path: "/proceso",
-    name: "proceso",
-    component: Proceso
+    path: "/crear-proceso",
+    name: "crear_proceso",
+    component: CrearProceso
   },
   {
-    path: "/lista",
-    name: "lista",
-    component: Lista
+    path: "/editar-proceso",
+    name: "editar_proceso",
+    component: EditarProceso,
+    props: true
   },
   {
-    path: "/planificacion",
-    name: "planificacion",
-    component: Planificacion
+    path: "/lista-contenido",
+    name: "lista_contenido",
+    component: ListaContenido
+  },
+  {
+    path: "/planificacion-emails",
+    name: "planificacion_emails",
+    component: PlanificacionEmail
   },
   {
     path: "/calendario",

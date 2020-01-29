@@ -3,7 +3,7 @@
     <div class="sidebar-wrapper">
       <div class="user-info">
         <div class="image">
-          <img src="@/assets/logo.png" alt="Perfil" width="48" height="48">
+          <img src="@/assets/logo.png" alt="Perfil" width="48" height="48" />
         </div>
       </div>
       <div class="menu">
@@ -14,57 +14,97 @@
           <ul class="sidebar-nav list">
             <li class="header">Menu de navegación</li>
             <li>
-              <router-link :to="{ name: 'inicio' }" class="waves-effect waves-block">
+              <router-link
+                :to="{ name: 'inicio' }"
+                class="waves-effect waves-block"
+              >
                 Inicio</router-link
               >
             </li>
             <li>
-              <router-link :to="{ name: 'listar_persona' }" class="waves-effect waves-block">
+              <router-link
+                :to="{ name: 'listar_persona' }"
+                class="waves-effect waves-block"
+              >
                 Persona</router-link
               >
             </li>
             <li>
-              <router-link :to="{ name: 'listar_proyecto' }" class="waves-effect waves-block">
+              <router-link
+                :to="{ name: 'listar_empresa' }"
+                class="waves-effect waves-block"
+              >
+                Empresa</router-link
+              >
+            </li>
+            <li>
+              <router-link
+                :to="{ name: 'listar_proyecto' }"
+                class="waves-effect waves-block"
+              >
                 Proyecto</router-link
               >
             </li>
             <li>
-              <router-link :to="{ name: 'listar_medio' }" class="waves-effect waves-block">
+              <router-link
+                :to="{ name: 'listar_medio' }"
+                class="waves-effect waves-block"
+              >
                 Medio</router-link
               >
             </li>
             <li>
-              <router-link :to="{ name: 'listar_comportamiento' }" class="waves-effect waves-block">
+              <router-link
+                :to="{ name: 'listar_comportamiento' }"
+                class="waves-effect waves-block"
+              >
                 Comportamientos</router-link
               >
             </li>
             <li>
-              <router-link :to="{ name: 'listar_objetivo' }" class="waves-effect waves-block">
+              <router-link
+                :to="{ name: 'listar_objetivo' }"
+                class="waves-effect waves-block"
+              >
                 Objetivos</router-link
               >
             </li>
             <li>
-              <router-link :to="{ name: 'proceso' }" class="waves-effect waves-block">
+              <router-link
+                :to="{ name: 'listar_proceso' }"
+                class="waves-effect waves-block"
+              >
                 Proceso</router-link
               >
             </li>
             <li>
-              <router-link :to="{ name: 'lista' }" class="waves-effect waves-block">
+              <router-link
+                :to="{ name: 'lista_contenido' }"
+                class="waves-effect waves-block"
+              >
                 Lista de contenido</router-link
               >
             </li>
             <li>
-              <router-link :to="{ name: 'planificacion' }" class="waves-effect waves-block">
+              <router-link
+                :to="{ name: 'planificacion_emails' }"
+                class="waves-effect waves-block"
+              >
                 Planificación</router-link
               >
             </li>
             <li>
-              <router-link :to="{ name: 'calendario' }" class="waves-effect waves-block">
+              <router-link
+                :to="{ name: 'calendario' }"
+                class="waves-effect waves-block"
+              >
                 Calendario</router-link
               >
             </li>
             <li>
-              <a href="/accounts/logout/" class="waves-effect waves-block">Salir</a>
+              <a href="/accounts/logout/" class="waves-effect waves-block"
+                >Salir</a
+              >
             </li>
           </ul>
         </div>

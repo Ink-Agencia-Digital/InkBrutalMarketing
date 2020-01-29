@@ -1,71 +1,96 @@
 <template>
-  <div class="container">
-    <div class="col-md-8">
-      <br /><br />
-      <h1>Proyecto</h1>
-      <br />
-      <router-link :to="{ name: 'crear_proyecto' }" class="b btn-info">
-        Crear
-      </router-link>
-      <br /><br /><br />
-      <table class="table">
-        <thead class="thead-dark">
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Nombre del proyecto</th>
-            <th scope="col">Empresa</th>
-            <th scope="col">Persona</th>
-            <th scope="col">Acción</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="pry in proyectos" :key="pry.PRY_Id_Proyecto">
-            <th scope="row">
-              {{ pry.PRY_Id_Proyecto }}
-            </th>
-            <td>
-              <label>
-                {{ pry.PRY_Nombre_Proyecto }}
-              </label>
-            </td>
-            <td>
-              <label>
-                {{ pry.PRY_Empresa_Proyecto.EMP_Nombre_Empresa }}
-              </label>
-            </td>
-            <td>
-              <label>
-                {{
-                  pry.PRY_Persona_Proyecto.PSN_Nombres_Persona +
-                    " " +
-                    pry.PRY_Persona_Proyecto.PSN_Apellidos_Persona
-                }}
-              </label>
-            </td>
-            <td>
+  <section class="content">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <div class="card">
+        <div class="header">
+          <h2>Proyectos</h2>
+          <ul class="header-dropdown" style="top:10px;">
+            <li class="dropdown">
               <router-link
-                :to="{
-                  name: 'editar_proyecto',
-                  params: { id: pry.PRY_Id_Proyecto }
-                }"
-                class="bp btn-primary"
+                :to="{ name: 'crear_proyecto' }"
+                class="btn btn-info"
               >
-                Modificar
+                <i class="material-icons" style="color:white;">add</i>Crear
               </router-link>
-              <button
-                type="button"
-                class="bpn btn-danger"
-                @click="deleteProyecto(pry.PRY_Id_Proyecto)"
-              >
-                Eliminar
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <br />
+            </li>
+          </ul>
+        </div>
+        <div class=" body table-responsive">
+          <p v-if="error" class="muted mt-2" style="color: red;">{{ error }}</p>
+          <table class="table">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nombre del proyecto</th>
+                <th scope="col">Empresa</th>
+                <th scope="col">Persona</th>
+                <th scope="col">Acción</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="(pry, index) in proyectos" :key="pry.PRY_Id_Proyecto">
+                <th scope="row">
+                  {{ ++index }}
+                </th>
+                <td>
+                  {{ pry.PRY_Nombre_Proyecto }}
+                </td>
+                <td>
+                  {{ pry.PRY_Empresa_Proyecto.EMP_Nombre_Empresa }}
+                </td>
+                <td>
+                  {{
+                    pry.PRY_Persona_Proyecto.PSN_Nombres_Persona +
+                      " " +
+                      pry.PRY_Persona_Proyecto.PSN_Apellidos_Persona
+                  }}
+                </td>
+                <td>
+                  <router-link
+                    :to="{
+                      name: 'editar_proyecto',
+                      params: { id: pry.PRY_Id_Proyecto }
+                    }"
+                    title="Editar este Registro"
+                  >
+                    <i
+                      class="material-icons text-info"
+                      style="font-size: 20px;"
+                    >
+                      edit
+                    </i>
+                  </router-link>
+                  <button
+                    type="button"
+                    class="btn-accion-tabla"
+                    title="Eliminar este Registro"
+                    @click="deleteProyecto(pry.PRY_Id_Proyecto)"
+                  >
+                    <i
+                      class="material-icons text-danger"
+                      style="font-size: 20px;"
+                    >
+                      delete
+                    </i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="my-4">
+            <p v-show="loadingProyectos">...Cargando...</p>
+            <button
+              v-show="nextProyecto"
+              @click="getProyectos('MAS')"
+              class="btn btn-sm btn-outline-success"
+            >
+              Cargar Más
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
+  </section>
 </template>
 
 <script>

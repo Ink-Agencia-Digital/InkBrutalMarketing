@@ -1,83 +1,107 @@
 <template>
-  <div class="container">
-    <div class="col-md-8">
-      <form @submit.prevent="onSubmit">
-        <br /><br />
-        <h1>Comportamiento</h1>
-        <br />
-        <div class="form-group">
-          <h3>Persona</h3>
-          <select
-            id="persona"
-            class="form-control"
-            v-model="CMP_Persona_Comportamiento"
-            required
-          >
-            <option selected value="">--Seleccione una persona--</option>
-            <option
-              v-for="psn in personas"
-              :key="psn.PSN_Id_Persona"
-              :value="psn.PSN_Id_Persona"
-            >
-              {{ psn.PSN_Nombres_Persona }} {{ psn.PSN_Apellidos_Persona }}
-            </option>
-          </select>
+  <section class="content">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <div class="card">
+        <div class="header">
+          <h2>Crear Comportamiento</h2>
+          <ul class="header-dropdown" style="top:10px;">
+            <li class="dropdown">
+              <router-link
+                :to="{ name: 'listar_comportamiento' }"
+                class="btn btn-danger"
+              >
+                <i class="material-icons" style="font-size: 20px;">
+                  keyboard_backspace
+                </i>
+                Volver
+              </router-link>
+            </li>
+          </ul>
         </div>
-        <br />
-        <div class="form-group ">
-          <h4>Describe sus hábitos y su día a día</h4>
-          <br />
-          <h5 for="descripcion">Descripción</h5>
-          <textarea
-            id="descripcion"
-            class="form-control"
-            aria-label="With textarea"
-            v-model="CMP_Descripcion_Comportamiento"
-          ></textarea>
-        </div>
-        <br /><br />
-        <div class="form-group ">
-          <h4>¿Cuáles son los medios de comunicación usados por tu Persona?</h4>
-          <br />
-          <h5 for="medio">Medios</h5>
-          <br />
-          <div class="custom-control custom-switch">
-            <div class="row">
-              <div class="col">
-                <ul>
-                  <li v-for="md in medios" :key="md.MDO_Id_Medio">
-                    <input
-                      type="checkbox"
-                      class="custom-control-input"
-                      :id="'medio' + md.MDO_Id_Medio"
-                      :value="md.MDO_Id_Medio"
-                      v-model="CMP_MDO_Medio_Id"
-                    />
-                    <label
-                      class="custom-control-label"
-                      :for="'medio' + md.MDO_Id_Medio"
-                    >
-                      {{ md.MDO_Nombre_Medio }}
-                    </label>
-                  </li>
-                </ul>
+        <div class="body">
+          <form @submit.prevent="onSubmit">
+            <div class="form-group">
+              <h3>Persona</h3>
+              <select
+                id="persona"
+                class="form-control"
+                v-model="CMP_Persona_Comportamiento"
+                required
+              >
+                <option selected value="">--Seleccione una persona--</option>
+                <option
+                  v-for="psn in personas"
+                  :key="psn.PSN_Id_Persona"
+                  :value="psn.PSN_Id_Persona"
+                >
+                  {{ psn.PSN_Nombres_Persona }} {{ psn.PSN_Apellidos_Persona }}
+                </option>
+              </select>
+            </div>
+            <div class="form-group ">
+              <h4>Describe sus hábitos y su día a día</h4>
+              <br />
+              <h5 for="descripcion">Descripción</h5>
+              <textarea
+                id="descripcion"
+                class="form-control"
+                aria-label="With textarea"
+                v-model="CMP_Descripcion_Comportamiento"
+              ></textarea>
+            </div>
+            <div class="form-group ">
+              <h4>
+                ¿Cuáles son los medios de comunicación usados por tu Persona?
+              </h4>
+              <br />
+              <h5 for="medio">Medios</h5>
+              <br />
+              <div class="custom-control custom-switch">
+                <div class="row">
+                  <div class="col">
+                    <ul>
+                      <li v-for="md in medios" :key="md.MDO_Id_Medio">
+                        <input
+                          type="checkbox"
+                          class="custom-control-input"
+                          :id="'medio' + md.MDO_Id_Medio"
+                          :value="md.MDO_Id_Medio"
+                          v-model="CMP_MDO_Medio_Id"
+                        />
+                        <label
+                          class="custom-control-label"
+                          :for="'medio' + md.MDO_Id_Medio"
+                        >
+                          {{ md.MDO_Nombre_Medio }}
+                        </label>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
+            <p v-if="error" class="muted mt-2" style="color: red;">
+              {{ error }}
+            </p>
+            <router-link
+              :to="{ name: 'listar_comportamiento' }"
+              class="btn btn-danger"
+            >
+              Cancelar
+            </router-link>
+            &nbsp;
+            <button
+              type="submit"
+              class="btn btn-dark"
+              style="background-color: #344675;"
+            >
+              Guardar
+            </button>
+          </form>
         </div>
-        <p v-if="error" class="muted mt-2" style="color: red;">{{ error }}</p>
-        <br />
-        <button
-          type="submit"
-          class="btn btn-dark"
-          style="background-color: #344675;"
-        >
-          Guardar
-        </button>
-        <br /><br /><br />
-      </form>
+      </div>
     </div>
-  </div>
+  </section>
 </template>
 
 <script>

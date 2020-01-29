@@ -23,6 +23,5 @@ export default {
   position: relative;
   width: 100%;
   padding-right: 0px;
-  padding-left: 250px;
 }
 </style>

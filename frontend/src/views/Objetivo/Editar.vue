@@ -1,49 +1,98 @@
 <template>
-  <div class="container">
-    <div class="col-md-8">
-      <form @submit.prevent="onSubmit">
-        <br /><br />
-        <h1>Objetivos y desafíos</h1>
-        <br />
-        <div class="form-group">
-          <h3>Persona</h3>
-          <select
-            id="persona"
-            class="form-control"
-            required
-            v-model="OBJ_Persona_Objetivo"
-          >
-            <option selected value="">--Seleccione una persona--</option>
-            <option
-              v-for="psn in personas"
-              :key="psn.PSN_Id_Persona"
-              :value="psn.PSN_Id_Persona"
-            >
-              {{ psn.PSN_Nombres_Persona }} {{ psn.PSN_Apellidos_Persona }}
-            </option>
-          </select>
+  <section class="content">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <div class="card">
+        <div class="header">
+          <h2>Editar Objetivos y desafíos</h2>
+          <ul class="header-dropdown" style="top:10px;">
+            <li class="dropdown">
+              <router-link
+                :to="{ name: 'listar_objetivo' }"
+                class="btn btn-danger"
+              >
+                <i class="material-icons" style="font-size: 20px;">
+                  keyboard_backspace
+                </i>
+                Volver
+              </router-link>
+            </li>
+          </ul>
         </div>
-        <br />
-        <label>{{ OBJ_Pregunta_Objetivo }}</label>
-        <label></label>
-        <input
-          type="text"
-          class="form-control"
-          :v-model="OBJ_Respuesta_Objetivo"
-          placeholder="Respuesta"
-        />
-        <p v-if="error" class="muted mt-2" style="color: red;">{{ error }}</p>
-        <br />
-        <button
-          type="submit"
-          class="btn btn-dark"
-          style="background-color: #344675;"
-        >
-          Guardar
-        </button>
-      </form>
+        <div class="body">
+          <form @submit.prevent="onSubmit">
+            <div class="form-group">
+              <h5>Persona</h5>
+              <select
+                id="persona"
+                class="form-control"
+                required
+                disabled
+                v-model="OBJ_Persona_Objetivo"
+              >
+                <option selected disabled value="">
+                  --Seleccione una persona--
+                </option>
+                <option
+                  v-for="psn in personas"
+                  :key="psn.PSN_Id_Persona"
+                  :value="psn.PSN_Id_Persona"
+                >
+                  {{ psn.PSN_Nombres_Persona }} {{ psn.PSN_Apellidos_Persona }}
+                </option>
+              </select>
+            </div>
+            <div class="form-group">
+              <h5>Pregunta</h5>
+              <select
+                id="pregunta"
+                class="form-control"
+                required
+                disabled
+                v-model="OBJ_Pregunta_Objetivo"
+              >
+                <option selected disabled value="">
+                  --Seleccione una pregunta--
+                </option>
+                <option
+                  v-for="prg in preguntas"
+                  :key="prg.PRG_Id_Pregunta"
+                  :value="prg.PRG_Id_Pregunta"
+                >
+                  {{ prg.PRG_Nombre_Pregunta }}
+                </option>
+              </select>
+            </div>
+            <div class="form-group">
+              <h5>Respuesta</h5>
+              <textarea
+                class="form-control"
+                aria-label="With textarea"
+                v-model="OBJ_Respuesta_Objetivo"
+                placeholder="Respuesta"
+              ></textarea>
+            </div>
+            <p v-if="error" class="muted mt-2" style="color: red;">
+              {{ error }}
+            </p>
+            <router-link
+              :to="{ name: 'listar_objetivo' }"
+              class="btn btn-danger"
+            >
+              Cancelar
+            </router-link>
+            &nbsp;
+            <button
+              type="submit"
+              class="btn btn-dark"
+              style="background-color: #344675;"
+            >
+              Guardar
+            </button>
+          </form>
+        </div>
+      </div>
     </div>
-  </div>
+  </section>
 </template>
 
 <script>
@@ -70,6 +119,7 @@ export default {
   data() {
     return {
       personas: [],
+      preguntas: [],
       OBJ_Persona_Objetivo: this.personaAnterior,
       OBJ_Pregunta_Objetivo: this.preguntaAnterior,
       OBJ_Respuesta_Objetivo: this.respuestaAnterior,
@@ -83,11 +133,17 @@ export default {
         this.personas.push(...data.results);
       });
     },
+    getPreguntas() {
+      let endpoint = "/api/pregunta/";
+      apiService(endpoint).then(data => {
+        this.preguntas.push(...data.results);
+      });
+    },
     onSubmit() {
       if (!this.OBJ_Respuesta_Objetivo) {
-        this.error = "Por favor digite los nombres";
+        this.error = "Por favor digite una respuesta";
       } else if (this.OBJ_Respuesta_Objetivo.length > 150) {
-        this.error = "El cargo no puede ser superior a 45 caracteres";
+        this.error = "La respuesta no puede ser superior a 150 caracteres";
       } else {
         let endpoint = `/api/objetivo/${this.id}/`;
         let method = "PUT";
@@ -104,7 +160,7 @@ export default {
     }
   },
   async beforeRouteEnter(to, from, next) {
-    let endpoint = `/api/objetivo-join/${to.params.id}/`;
+    let endpoint = `/api/objetivo/${to.params.id}/`;
     let data = await apiService(endpoint);
     to.params.personaAnterior = data.OBJ_Persona_Objetivo;
     to.params.preguntaAnterior = data.OBJ_Pregunta_Objetivo;
@@ -113,6 +169,7 @@ export default {
   },
   created() {
     this.getPersonas();
+    this.getPreguntas();
   }
 };
 </script>

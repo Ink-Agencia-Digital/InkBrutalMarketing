@@ -4,10 +4,25 @@
       <div class="card">
         <div class="header">
           <h2>Crear Empresa</h2>
+          <ul class="header-dropdown" style="top:10px;">
+            <li class="dropdown">
+              <router-link
+                :to="{ name: 'listar_empresa' }"
+                class="btn btn-danger"
+              >
+                <i class="material-icons" style="font-size: 20px;">
+                  keyboard_backspace
+                </i>
+                Volver
+              </router-link>
+            </li>
+          </ul>
         </div>
         <div class="body">
           <form @submit.prevent="onSubmit">
-            <br />
+            <p v-if="error" class="muted mt-2" style="color: red;">
+              {{ error }}
+            </p>
             <div class="form-row">
               <div class="form-group col-md-4">
                 <label for="empresa">Nombre Empresa</label>
@@ -78,10 +93,10 @@
                 </select>
               </div>
             </div>
-            <p v-if="error" class="muted mt-2" style="color: red;">
-              {{ error }}
-            </p>
-            <br />
+            <router-link :to="{ name: 'listar_empresa' }" class="btn btn-danger"
+              >Cancelar</router-link
+            >
+            &nbsp;
             <button
               type="submit"
               class="btn btn-dark"
@@ -89,7 +104,6 @@
             >
               Guardar
             </button>
-            <br /><br /><br />
           </form>
         </div>
       </div>
@@ -109,7 +123,7 @@ export default {
   methods: {
     onSubmit() {
       if (!this.EMP_Nombre_Empresa) {
-        this.error = "Por favor digite un nombre de la empresa";
+        this.error = "Por favor digite el nombre de la empresa";
       } else if (!this.EMP_NIT_Empresa) {
         this.error = "Por favor digite el NIT de la empresa";
       } else if (!this.EMP_Direccion_Empresa) {

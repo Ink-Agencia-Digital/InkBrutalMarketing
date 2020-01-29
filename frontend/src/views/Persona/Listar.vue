@@ -1,19 +1,19 @@
 <template>
-  <div class="container">
+  <section class="content">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
       <div class="card">
         <div class="header">
-          <h2>Persona</h2>
+          <h2>Personas</h2>
           <ul class="header-dropdown" style="top:10px;">
             <li class="dropdown">
               <router-link :to="{ name: 'crear_persona' }" class="btn btn-info">
-                Crear
+                <i class="material-icons" style="color:white;">add</i>Crear
               </router-link>
             </li>
           </ul>
         </div>
-        <p v-if="error" class="muted mt-2" style="color: red;">{{ error }}</p>
         <div class=" body table-responsive">
+          <p v-if="error" class="muted mt-2" style="color: red;">{{ error }}</p>
           <table class="table">
             <thead class="thead-dark">
               <tr>
@@ -35,9 +35,9 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="psn in personas" :key="psn.PSN_Id_Persona">
+              <tr v-for="(psn, index) in personas" :key="psn.PSN_Id_Persona">
                 <th scope="row">
-                  {{ psn.PSN_Id_Persona }}
+                  {{ ++index }}
                 </th>
                 <td>
                   <label class="" for="nombre">
@@ -60,35 +60,46 @@
                       name: 'editar_persona',
                       params: { id: psn.PSN_Id_Persona }
                     }"
-                    class="bp btn-primary"
+                    title="Editar este Registro"
                   >
-                    Modificar
+                    <i
+                      class="material-icons text-info"
+                      style="font-size: 20px;"
+                    >
+                      edit
+                    </i>
                   </router-link>
                   <button
                     type="button"
-                    class="bpn btn-danger"
+                    class="btn-accion-tabla"
+                    title="Eliminar este Registro"
                     @click="deletePersona(psn.PSN_Id_Persona)"
                   >
-                    Eliminar
+                    <i
+                      class="material-icons text-danger"
+                      style="font-size: 20px;"
+                    >
+                      delete
+                    </i>
                   </button>
                 </td>
               </tr>
             </tbody>
           </table>
+          <div class="my-4">
+            <p v-show="loadingPersonas">...Cargando...</p>
+            <button
+              v-show="nextPersona"
+              @click="getPersonas('MAS')"
+              class="btn btn-sm btn-outline-success"
+            >
+              Cargar Más
+            </button>
+          </div>
         </div>
       </div>
-      <div class="my-4">
-        <p v-show="loadingPersonas">...Cargando...</p>
-        <button
-          v-show="nextPersona"
-          @click="getPersonas('MAS')"
-          class="btn btn-sm btn-outline-success"
-        >
-          Cargar Más
-        </button>
-      </div>
     </div>
-  </div>
+  </section>
 </template>
 
 <script>

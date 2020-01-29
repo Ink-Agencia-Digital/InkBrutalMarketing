@@ -1,98 +1,127 @@
 <template>
-  <div class="container">
-    <div class="col-md-8">
-      <form @submit.prevent="onSubmit">
-        <br /><br />
-        <h1>Persona</h1>
-        <br />
-        <div class="form-row">
-          <div class="form-group col-md-6">
-            <label for="nombre">Nombres</label>
-            <input
-              type="text"
-              class="form-control"
-              v-model="PSN_Nombres_Persona"
-              placeholder="Nombres"
-              id="nombre"
-              maxlength="45"
-            />
-          </div>
-          <div class="form-group col-md-6">
-            <label for="apellido">Apellidos</label>
-            <input
-              type="text"
-              class="form-control"
-              v-model="PSN_Apellidos_Persona"
-              placeholder="Apellidos"
-              id="nombre"
-              maxlength="45"
-            />
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="form-group col-md-6">
-            <label for="edad">Edad</label>
-            <input
-              type="text"
-              class="form-control"
-              v-model="PSN_Edad_Persona"
-              placeholder="Edad"
-              id="edad"
-              maxlength="3"
-            />
-          </div>
-          <div class="form-group col-md-6">
-            <label for="sexo">Sexo</label>
-            <select id="sexo" class="form-control" v-model="PSN_Sexo_Persona">
-              <option selected value="">--Selecciona un Sexo--</option>
-              <option value="Femenino">Femenino</option>
-              <option value="Masculino">Masculino</option>
-            </select>
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="form-group col-md-6">
-            <label for="escolaridad">Escolaridad</label>
-            <select
-              id="escolaridad"
-              class="form-control"
-              v-model="PSN_Escoladidad_Persona"
-            >
-              <option value="">--Seleccione una escolaridad--</option>
-              <option
-                v-for="esc in escolaridades"
-                :key="esc.ESC_Id_Escolaridad"
-                :value="esc.ESC_Id_Escolaridad"
+  <section class="content">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <div class="card">
+        <div class="header">
+          <h2>Editar Persona</h2>
+          <ul class="header-dropdown" style="top:10px;">
+            <li class="dropdown">
+              <router-link
+                :to="{ name: 'listar_persona' }"
+                class="btn btn-danger"
               >
-                {{ esc.ESC_Nombre_Escolaridad }}
-              </option>
-            </select>
-          </div>
-          <div class="form-group col-md-6">
-            <label for="cargo">Cargo</label>
-            <input
-              type="text"
-              class="form-control"
-              v-model="PSN_Cargo_Persona"
-              placeholder="Cargo"
-              id="cargo"
-              maxlength="45"
-            />
-          </div>
+                <i class="material-icons" style="font-size: 20px;">
+                  keyboard_backspace
+                </i>
+                Volver
+              </router-link>
+            </li>
+          </ul>
         </div>
-        <p v-if="error" class="muted mt-2" style="color: red;">{{ error }}</p>
-        <br />
-        <button
-          type="submit"
-          class="btn btn-dark"
-          style="background-color: #344675;"
-        >
-          Guardar
-        </button>
-        <br /><br /><br />
-      </form>
+        <div class="body">
+          <form @submit.prevent="onSubmit">
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="nombre">Nombres</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  v-model="PSN_Nombres_Persona"
+                  placeholder="Nombres"
+                  id="nombre"
+                  maxlength="45"
+                />
+              </div>
+              <div class="form-group col-md-6">
+                <label for="apellido">Apellidos</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  v-model="PSN_Apellidos_Persona"
+                  placeholder="Apellidos"
+                  id="nombre"
+                  maxlength="45"
+                />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="edad">Edad</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  v-model="PSN_Edad_Persona"
+                  placeholder="Edad"
+                  id="edad"
+                  maxlength="3"
+                />
+              </div>
+              <div class="form-group col-md-6">
+                <label for="sexo">Sexo</label>
+                <select
+                  id="sexo"
+                  class="form-control"
+                  v-model="PSN_Sexo_Persona"
+                >
+                  <option disabled value="">
+                    --Selecciona un Sexo--
+                  </option>
+                  <option value="Femenino">Femenino</option>
+                  <option value="Masculino">Masculino</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="escolaridad">Escolaridad</label>
+                <select
+                  id="escolaridad"
+                  class="form-control"
+                  v-model="PSN_Escoladidad_Persona"
+                >
+                  <option disabled value="">
+                    --Seleccione una escolaridad--
+                  </option>
+                  <option
+                    v-for="esc in escolaridades"
+                    :key="esc.ESC_Id_Escolaridad"
+                    :value="esc.ESC_Id_Escolaridad"
+                  >
+                    {{ esc.ESC_Nombre_Escolaridad }}
+                  </option>
+                </select>
+              </div>
+              <div class="form-group col-md-6">
+                <label for="cargo">Cargo</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  v-model="PSN_Cargo_Persona"
+                  placeholder="Cargo"
+                  id="cargo"
+                  maxlength="45"
+                />
+              </div>
+            </div>
+            <p v-if="error" class="muted mt-2" style="color: red;">
+              {{ error }}
+            </p>
+            <router-link :to="{ name: 'listar_persona' }" class="btn btn-danger"
+              >Cancelar</router-link
+            >
+            &nbsp;
+            <button
+              type="submit"
+              class="btn btn-dark"
+              style="background-color: #344675;"
+            >
+              Guardar
+            </button>
+          </form>
+        </div>
+      </div>
     </div>
-  </div>
+  </section>
 </template>
 <script>
 import { apiService } from "@/common/api.service.js";
@@ -173,7 +202,7 @@ export default {
           PSN_Cargo_Persona: this.PSN_Cargo_Persona
         }).then(() => {
           this.$router.push({
-            name: "listar_empresa"
+            name: "listar_persona"
           });
         });
       }
