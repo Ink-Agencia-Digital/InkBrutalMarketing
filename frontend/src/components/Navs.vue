@@ -55,22 +55,6 @@
             </li>
             <li>
               <router-link
-                :to="{ name: 'listar_comportamiento' }"
-                class="waves-effect waves-block"
-              >
-                Comportamientos</router-link
-              >
-            </li>
-            <li>
-              <router-link
-                :to="{ name: 'listar_objetivo' }"
-                class="waves-effect waves-block"
-              >
-                Objetivos</router-link
-              >
-            </li>
-            <li>
-              <router-link
                 :to="{ name: 'listar_proceso' }"
                 class="waves-effect waves-block"
               >

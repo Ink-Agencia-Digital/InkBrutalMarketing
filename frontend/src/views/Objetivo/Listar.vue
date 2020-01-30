@@ -12,28 +12,20 @@
               >
                 <i class="material-icons" style="color:white;">add</i>Crear
               </router-link>
+              &nbsp;
+              <router-link
+                :to="{ name: 'listar_persona' }"
+                class="btn btn-danger"
+              >
+                <i class="material-icons" style="color:white;"
+                  >keyboard_backspace</i
+                >
+                Volver a Personas
+              </router-link>
             </li>
           </ul>
         </div>
         <div class=" body table-responsive">
-          <select
-            id="persona"
-            class="form-control"
-            v-model="idPersona"
-            @change="onChange($event)"
-          >
-            <option disabled value="">
-              --Seleccione una Persona--
-            </option>
-            <option
-              v-for="psn in personas"
-              :key="psn.PSN_Id_Persona"
-              :value="psn.PSN_Id_Persona"
-            >
-              {{ psn.PSN_Nombres_Persona + " " + psn.PSN_Apellidos_Persona }}
-            </option>
-          </select>
-          <br />
           <p v-if="error" class="muted mt-2" style="color: red;">{{ error }}</p>
           <br />
           <table class="table">
@@ -120,6 +112,12 @@
 <script>
 import { apiService } from "@/common/api.service.js";
 export default {
+  props: {
+    id: {
+      type: Number,
+      required: true
+    }
+  },
   data() {
     return {
       personas: [],
@@ -136,18 +134,15 @@ export default {
         this.personas.push(...data.results);
       });
     },
-    onChange() {
-      this.getObjetivos(event.target.value);
-    },
     getObjetivos(accion = null) {
       if (accion == null || accion == "") {
-        let endpoint = "/api/objetivo-join/";
+        let endpoint = `/api/persona/${this.id}/objetivo/`;
         this.objetivos = [];
         apiService(endpoint).then(data => {
           this.objetivos.push(...data.results);
         });
       } else if (accion == "DELETE") {
-        let endpoint = "/api/objetivo-join/";
+        let endpoint = `/api/persona/${this.id}/objetivo/`;
         this.objetivos = [];
         if (this.nextObjetivo) {
           endpoint = this.nextObjetivo;
@@ -163,7 +158,7 @@ export default {
           }
         });
       } else {
-        let endpoint = `/api/persona/${accion}/objetivo/`;
+        let endpoint = `/api/persona/${this.id}/objetivo/`;
         this.objetivos = [];
         if (this.nextObjetivo) {
           endpoint = this.nextObjetivo;

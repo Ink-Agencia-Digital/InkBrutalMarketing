@@ -153,6 +153,24 @@ class PreguntaViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         serializer.save()
 
+class PreguntasFiltroView(generics.ListAPIView):
+    serializer_class = PreguntaSerializer
+    permission_classes = [IsAuthenticated, IsAuthorOrReadOnly]
+    
+    def get_queryset(self):
+        pk = (self.kwargs.get("pk"))
+        queryset = Pregunta.objects.raw('''SELECT 
+                                         PRG_Id_Pregunta, 
+                                         PRG_Nombre_Pregunta, 
+                                         created_at, 
+                                         updated_at 
+                                         FROM TBL_Preguntas 
+                                         WHERE NOT EXISTS( 
+                                         SELECT NULL FROM TBL_Objetivos 
+                                         WHERE TBL_Objetivos.OBJ_Pregunta_Objetivo_id = TBL_Preguntas.PRG_Id_Pregunta 
+                                         AND TBL_Objetivos.OBJ_Persona_Objetivo_id = %s)''', [pk])
+        return queryset
+
 class ObjetivoViewSet(viewsets.ModelViewSet):
     queryset = Objetivo.objects.all()
     serializer_class = ObjetivoSerializer

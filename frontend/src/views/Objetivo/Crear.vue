@@ -27,6 +27,7 @@
                 class="form-control"
                 required
                 v-model="OBJ_Persona_Objetivo"
+                disabled
               >
                 <option selected disabled value="">
                   --Seleccione una persona--
@@ -115,9 +116,15 @@
 <script>
 import { apiService } from "@/common/api.service.js";
 export default {
+  props: {
+    id: {
+      type: Number,
+      required: true
+    }
+  },
   data() {
     return {
-      OBJ_Persona_Objetivo: "",
+      OBJ_Persona_Objetivo: this.id,
       personas: [],
       preguntas: [],
       nextPregunta: null,
@@ -133,7 +140,7 @@ export default {
       });
     },
     getPreguntas() {
-      let endpoint = "/api/pregunta/";
+      let endpoint = `/api/pregunta/${this.id}/filtro/`;
       apiService(endpoint).then(data => {
         this.preguntas.push(...data.results);
       });

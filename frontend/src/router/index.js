@@ -124,14 +124,16 @@ const routes = [
     component: EditarComportamiento
   },
   {
-    path: "/listar-objetivo",
+    path: "/listar-objetivo/:id",
     name: "listar_objetivo",
-    component: ListarObjetivo
+    component: ListarObjetivo,
+    props: true
   },
   {
-    path: "/crear-objetivo",
+    path: "/crear-objetivo/:id",
     name: "crear_objetivo",
-    component: CrearObjetivo
+    component: CrearObjetivo,
+    props: true
   },
   {
     path: "/editar-objetivo/:id",

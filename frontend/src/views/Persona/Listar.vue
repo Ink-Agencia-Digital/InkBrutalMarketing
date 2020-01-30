@@ -56,6 +56,31 @@
                 </td>
                 <td>
                   <router-link
+                    :to="{ name: 'listar_comportamiento' }"
+                    :title="'Comportamientos'"
+                  >
+                    <i
+                      class="material-icons text-info"
+                      style="font-size: 20px;"
+                    >
+                      extension
+                    </i>
+                  </router-link>
+                  <router-link
+                    :to="{
+                      name: 'listar_objetivo',
+                      params: { id: psn.PSN_Id_Persona }
+                    }"
+                    :title="'Objetivos'"
+                  >
+                    <i
+                      class="material-icons text-info"
+                      style="font-size: 20px;"
+                    >
+                      event
+                    </i>
+                  </router-link>
+                  <router-link
                     :to="{
                       name: 'editar_persona',
                       params: { id: psn.PSN_Id_Persona }

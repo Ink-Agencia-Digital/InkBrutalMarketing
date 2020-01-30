@@ -26,5 +26,6 @@ urlpatterns = [
     path("persona/<int:pk>/medio/", views.MedioPersonaView.as_view(), name="medios-persona"),
     path("persona/<int:idpersona>/objetivo/", views.ObjetivoPersonaViewSet.as_view(), name="objetivos-persona"),
     path("objetivo-join/<int:pk>/", views.ObjetivoJoin.as_view(), name="objetivo"),
+    path("pregunta/<int:pk>/filtro/", views.PreguntasFiltroView.as_view(), name="filtro-preguntas"),
     path("", include(router.urls)),
 ]
