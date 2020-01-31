@@ -20,22 +20,45 @@
         </div>
         <div class="body">
           <form @submit.prevent="onSubmit">
-            <div class="form-group">
-              <h5 for="medio">Nombre del Medio</h5>
-              <input
-                type="text"
-                class="form-control"
-                id="medio"
-                v-model="MDO_Nombre_Medio"
-              />
+            <div class="form-row">
+              <div class="form-group col-md-12">
+                <label for="medio">Nombre del Medio</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="medio"
+                  v-model="MDO_Nombre_Medio"
+                />
+              </div>
             </div>
-            <div class="form-group ">
-              <h5 for="descripcion">Descripción</h5>
-              <textarea
-                class="form-control"
-                aria-label="With textarea"
-                v-model="MDO_Descripcion_Medio"
-              ></textarea>
+            <div class="form-row">
+              <div class="form-group col-md-12">
+                <label for="icono">
+                  Icono del Medio
+                  <i
+                    id="mostrar-icono"
+                    class="form-label fa "
+                    v-bind:class="this.MDO_Icono_Medio"
+                  ></i>
+                </label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="icono"
+                  v-model="MDO_Icono_Medio"
+                  v-on:keyup="icon"
+                />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-12">
+                <label for="descripcion">Descripción</label>
+                <textarea
+                  class="form-control"
+                  aria-label="With textarea"
+                  v-model="MDO_Descripcion_Medio"
+                ></textarea>
+              </div>
             </div>
             <p v-if="error" class="muted mt-2" style="color: red;">
               {{ error }}
@@ -73,33 +96,52 @@ export default {
     descripcionAnterior: {
       type: String,
       required: true
+    },
+    iconoAnterior: {
+      type: String,
+      required: true
     }
   },
   data() {
     return {
       MDO_Nombre_Medio: this.nombreAnterior,
       MDO_Descripcion_Medio: this.descripcionAnterior,
+      MDO_Icono_Medio: this.iconoAnterior,
       error: null
     };
   },
   methods: {
+    icon: function() {
+      var contenido = "";
+      for (var i = 0; i < this.MDO_Icono_Medio.length; i++) {
+        if (this.MDO_Icono_Medio.charAt(i) == " ") contenido = contenido + "-";
+        else contenido = contenido + this.MDO_Icono_Medio.charAt(i);
+      }
+      this.MDO_Icono_Medio = contenido;
+    },
     onSubmit() {
       if (!this.MDO_Nombre_Medio) {
         this.error = "Por favor digite un nombre de medio";
       } else if (!this.MDO_Descripcion_Medio) {
         this.error = "Por favor digite una descripción del medio";
+      } else if (!this.MDO_Icono_Medio) {
+        this.error = "Por favor digite una icono para el medio";
       } else if (this.MDO_Nombre_Medio.length > 150) {
         this.error =
           "El nombre del medio no puede ser superior a 150 caracteres";
       } else if (this.MDO_Descripcion_Medio.length > 1000) {
         this.error =
           "La descripción del medio no puede ser superior a 1000 caracteres";
+      } else if (this.MDO_Icono_Medio.length > 1000) {
+        this.error =
+          "El Icono del medio no puede ser superior a 1000 caracteres";
       } else {
         let endpoint = `/api/medio/${this.id}/`;
         let method = "PUT";
         apiService(endpoint, method, {
           MDO_Nombre_Medio: this.MDO_Nombre_Medio,
-          MDO_Descripcion_Medio: this.MDO_Descripcion_Medio
+          MDO_Descripcion_Medio: this.MDO_Descripcion_Medio,
+          MDO_Icono_Medio: this.MDO_Icono_Medio
         }).then(() => {
           this.$router.push({
             name: "listar_medio"
@@ -113,6 +155,7 @@ export default {
     let data = await apiService(endpoint);
     to.params.nombreAnterior = data.MDO_Nombre_Medio;
     to.params.descripcionAnterior = data.MDO_Descripcion_Medio;
+    to.params.iconoAnterior = data.MDO_Icono_Medio;
     return next();
   }
 };
