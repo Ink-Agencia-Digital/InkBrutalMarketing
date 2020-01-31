@@ -110,6 +110,7 @@ class MedioPersonaView(generics.ListAPIView):
                                          TBL_Medios.MDO_Id_Medio, 
                                          TBL_Medios.MDO_Nombre_Medio, 
                                          TBL_Medios.MDO_Descripcion_Medio, 
+                                         TBL_Medios.MDO_Icono_Medio, 
                                          TBL_Medios.created_at, 
                                          TBL_Medios.updated_at 
                                          FROM TBL_Medios 

@@ -31,6 +31,7 @@
                 <td>
                   <label class="">
                     {{ mdo.MDO_Nombre_Medio }}
+                    <i class="fa " v-bind:class="mdo.MDO_Icono_Medio"></i>
                   </label>
                 </td>
                 <td>

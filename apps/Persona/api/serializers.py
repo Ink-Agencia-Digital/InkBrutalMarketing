@@ -79,7 +79,7 @@ class MedioSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Medio
-        fields = ["MDO_Id_Medio", "MDO_Nombre_Medio", "MDO_Descripcion_Medio", "created_at"]
+        fields = ["MDO_Id_Medio", "MDO_Nombre_Medio", "MDO_Descripcion_Medio", "MDO_Icono_Medio", "created_at"]
     
     def get_created_at(self, instance):
         return instance.created_at.strftime("%B %d, %Y")

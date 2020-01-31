@@ -56,7 +56,10 @@
                 </td>
                 <td>
                   <router-link
-                    :to="{ name: 'listar_comportamiento' }"
+                    :to="{
+                      name: 'listar_comportamiento',
+                      params: { id: psn.PSN_Id_Persona }
+                    }"
                     :title="'Comportamientos'"
                   >
                     <i

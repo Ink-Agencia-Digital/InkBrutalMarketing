@@ -111,6 +111,12 @@
 <script>
 import { apiService } from "@/common/api.service.js";
 export default {
+  props: {
+    id: {
+      type: Number,
+      required: true
+    }
+  },
   data() {
     return {
       comportamientos: [],

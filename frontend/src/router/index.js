@@ -109,14 +109,16 @@ const routes = [
     props: true
   },
   {
-    path: "/listar-comportamiento",
+    path: "/listar-comportamiento/:id",
     name: "listar_comportamiento",
-    component: ListarComportamiento
+    component: ListarComportamiento,
+    props: true
   },
   {
-    path: "/crear-comportamiento",
+    path: "/crear-comportamiento/:id",
     name: "crear_comportamiento",
-    component: CrearComportamiento
+    component: CrearComportamiento,
+    props: true
   },
   {
     path: "/editar-comportamiento",

@@ -59,6 +59,7 @@ class Medio(models.Model):
     MDO_Id_Medio = models.BigAutoField(primary_key = True)
     MDO_Nombre_Medio = models.CharField(max_length = 150)
     MDO_Descripcion_Medio = models.TextField()
+    MDO_Icono_Medio = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     

@@ -20,22 +20,45 @@
         </div>
         <div class="body">
           <form @submit.prevent="onSubmit">
-            <div class="form-group">
-              <h5 for="medio">Nombre del Medio</h5>
-              <input
-                type="text"
-                class="form-control"
-                id="medio"
-                v-model="MDO_Nombre_Medio"
-              />
+            <div class="form-row">
+              <div class="form-group col-md-12">
+                <label for="medio">Nombre del Medio</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="medio"
+                  v-model="MDO_Nombre_Medio"
+                />
+              </div>
             </div>
-            <div class="form-group ">
-              <h5 for="descripcion">Descripción</h5>
-              <textarea
-                class="form-control"
-                aria-label="With textarea"
-                v-model="MDO_Descripcion_Medio"
-              ></textarea>
+            <div class="form-row">
+              <div class="form-group col-md-12">
+                <label for="icono">
+                  Icono del Medio
+                  <i
+                    id="mostrar-icono"
+                    class="form-label fa "
+                    v-bind:class="this.MDO_Icono_Medio"
+                  ></i>
+                </label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="icono"
+                  v-model="MDO_Icono_Medio"
+                  v-on:keyup="icon"
+                />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-12">
+                <label for="descripcion">Descripción</label>
+                <textarea
+                  class="form-control"
+                  aria-label="With textarea"
+                  v-model="MDO_Descripcion_Medio"
+                ></textarea>
+              </div>
             </div>
             <p v-if="error" class="muted mt-2" style="color: red;">
               {{ error }}
@@ -63,10 +86,19 @@ import { apiService } from "@/common/api.service.js";
 export default {
   data() {
     return {
+      MDO_Icono_Medio: "",
       error: null
     };
   },
   methods: {
+    icon: function() {
+      var contenido = "";
+      for (var i = 0; i < this.MDO_Icono_Medio.length; i++) {
+        if (this.MDO_Icono_Medio.charAt(i) == " ") contenido = contenido + "-";
+        else contenido = contenido + this.MDO_Icono_Medio.charAt(i);
+      }
+      this.MDO_Icono_Medio = contenido;
+    },
     onSubmit() {
       if (!this.MDO_Nombre_Medio) {
         this.error = "Por favor digite un nombre de medio";

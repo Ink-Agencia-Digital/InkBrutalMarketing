@@ -21,12 +21,13 @@
         <div class="body">
           <form @submit.prevent="onSubmit">
             <div class="form-group">
-              <h3>Persona</h3>
+              <label>Persona</label>
               <select
                 id="persona"
                 class="form-control"
                 v-model="CMP_Persona_Comportamiento"
                 required
+                disabled
               >
                 <option selected value="">--Seleccione una persona--</option>
                 <option
@@ -39,9 +40,8 @@
               </select>
             </div>
             <div class="form-group ">
-              <h4>Describe sus hábitos y su día a día</h4>
+              <label>Describe sus hábitos y su día a día</label>
               <br />
-              <h5 for="descripcion">Descripción</h5>
               <textarea
                 id="descripcion"
                 class="form-control"
@@ -50,9 +50,9 @@
               ></textarea>
             </div>
             <div class="form-group ">
-              <h4>
+              <label>
                 ¿Cuáles son los medios de comunicación usados por tu Persona?
-              </h4>
+              </label>
               <br />
               <h5 for="medio">Medios</h5>
               <br />
@@ -72,6 +72,7 @@
                           class="custom-control-label"
                           :for="'medio' + md.MDO_Id_Medio"
                         >
+                          <i class="fa " v-bind:class="md.MDO_Icono_Medio"></i>
                           {{ md.MDO_Nombre_Medio }}
                         </label>
                       </li>
@@ -107,9 +108,15 @@
 <script>
 import { apiService } from "@/common/api.service.js";
 export default {
+  props: {
+    id: {
+      type: Number,
+      required: true
+    }
+  },
   data() {
     return {
-      CMP_Persona_Comportamiento: "",
+      CMP_Persona_Comportamiento: this.id,
       personas: [],
       medios: [],
       valMedio: false,
