@@ -104,18 +104,24 @@ export default {
         this.error = "Por favor digite un nombre de medio";
       } else if (!this.MDO_Descripcion_Medio) {
         this.error = "Por favor digite una descripción del medio";
+      } else if (!this.MDO_Icono_Medio) {
+        this.error = "Por favor digite una icono para el medio";
       } else if (this.MDO_Nombre_Medio.length > 150) {
         this.error =
           "El nombre del medio no puede ser superior a 150 caracteres";
       } else if (this.MDO_Descripcion_Medio.length > 1000) {
         this.error =
           "La descripción del medio no puede ser superior a 1000 caracteres";
+      } else if (this.MDO_Icono_Medio.length > 1000) {
+        this.error =
+          "El Icono del medio no puede ser superior a 1000 caracteres";
       } else {
         let endpoint = "/api/medio/";
         let method = "POST";
         apiService(endpoint, method, {
           MDO_Nombre_Medio: this.MDO_Nombre_Medio,
-          MDO_Descripcion_Medio: this.MDO_Descripcion_Medio
+          MDO_Descripcion_Medio: this.MDO_Descripcion_Medio,
+          MDO_Icono_Medio: this.MDO_Icono_Medio
         }).then(() => {
           this.$router.push({
             name: "listar_medio"
